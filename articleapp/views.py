@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
@@ -40,6 +40,10 @@ def article_login(request):
             messages.error(request, "Invalid credentials.")
     return render(request, 'article_login.html')
 
+
+def article_logout(request):
+    logout(request)
+    return redirect('article_login')
 
 
 def article_register(request):

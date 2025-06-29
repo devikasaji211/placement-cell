@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
@@ -82,7 +82,9 @@ def student_register(request):
     return render(request, 'student_register.html')
 
 
-
+def student_logout(request):
+    logout(request)
+    return redirect('student_login')
 
 @login_required
 def referral_request(request, vacancy_id):
