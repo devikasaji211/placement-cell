@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post Articleship Vacancy</title>
+</head>
+<body>
+    <h2>Post an Articleship Vacancy</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Firm Name:</label><br>
+        <input type="text" name="firm_name" required><br><br>
+
+        <label>Branch:</label><br>
+        <input type="text" name="branch" required><br><br>
+
+        <label>Other Branches (if any):</label><br>
+        <input type="text" name="other_branches"><br><br>
+
+        <label>Number of Vacancies:</label><br>
+        <input type="number" name="vacancies" min="1" required><br><br>
+
+        <label>Phone(Application purpose):</label><br>
+        <input type="text" name="phone" required><br><br>
+
+        <label>Email(Application Purpose):</label><br>
+        <input type="email" name="email" required><br><br>
+
+        <label>Description of Firm / Types of Work:</label><br>
+        <textarea name="description" rows="5" required></textarea><br><br>
+
+        <label>Stipend:</label><br>
+        <input type="text" name="stipend" required><br><br>
+
+        <label>Website (optional):</label><br>
+        <input type="url" name="website"><br><br>
+
+        <label>LinkedIn (optional):</label><br>
+        <input type="url" name="linkedin"><br><br>
+
+        <label>
+        <input type="checkbox" name="share_contact"> I am willing to share my contact details with students
+        </label><br><br>
+
+        <button type="submit">Post Vacancy</button>
+    </form>
+
+    <p><a href="{% url 'article_page' %}">Back to Dashboard</a></p>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Vacancy</title>
+</head>
+<body>
+    <h2>Edit Vacancy</h2>
+    <form method="POST">
+        {% csrf_token %}
+        Firm Name: <input type="text" name="firm_name" value="{{ vacancy.firm_name }}" required><br><br>
+        Branch: <input type="text" name="branch" value="{{ vacancy.branch }}" required><br><br>
+        Other Branches: <input type="text" name="other_branches" value="{{ vacancy.other_branches }}"><br><br>
+        Vacancies: <input type="number" name="vacancies" value="{{ vacancy.vacancies }}" required><br><br>
+        Phone: <input type="text" name="phone" value="{{ vacancy.phone }}" required><br><br>
+        Email: <input type="email" name="email" value="{{ vacancy.email }}" required><br><br>
+        Description: <textarea name="description" required>{{ vacancy.description }}</textarea><br><br>
+        Stipend: <input type="text" name="stipend" value="{{ vacancy.stipend }}"><br><br>
+        Website: <input type="url" name="website" value="{{ vacancy.website }}"><br><br>
+        LinkedIn: <input type="url" name="linkedin" value="{{ vacancy.linkedin }}"><br><br>
+        <button type="submit">Update</button>
+    </form>
+    <p><a href="{% url 'article_page' %}">← Back to Article Page</a></p>
+</body>
+</html>
+

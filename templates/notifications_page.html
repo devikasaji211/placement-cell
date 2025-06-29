@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notifications</title>
+    <style>
+        .notification {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .unread {
+            background-color: #f0f4ff;
+            font-weight: bold;
+        }
+
+        a {
+            margin-left: 10px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <h2>Your Notifications</h2>
+
+    {% for n in notifications %}
+        <div class="notification {% if not n.is_read %}unread{% endif %}">
+            {{ n.message }}
+            <small>({{ n.created_at|timesince }} ago)</small>
+            {% if not n.is_read %}
+                <a href="{% url 'mark_notification_read' n.id %}">Mark as Read</a>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>No notifications yet.</p>
+    {% endfor %}
+
+    <a href="{% url 'student_page' %}">← Back</a>
+</body>
+</html>

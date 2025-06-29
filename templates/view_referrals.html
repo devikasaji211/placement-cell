@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Referrals</title>
+</head>
+<body>
+<h2>Referral Requests for {{ vacancy.firm_name }} - {{ vacancy.branch }}</h2>
+<table>
+    <tr>
+        <th>Student</th>
+        <th>Message</th>
+        <th>Resume</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    {% for referral in referrals %}
+    <tr>
+        <td>{{ referral.student.name }}</td>
+        <td>{{ referral.message }}</td>
+        <td><a href="{{ referral.resume.url }}">Download</a></td>
+        <td>{{ referral.get_status_display }}</td>
+        <td>
+            <form method="POST" action="{% url 'update_referral_status' referral.id %}">
+    {% csrf_token %}
+    <select name="status">
+        <option value="Pending" {% if referral.status == 'Pending' %}selected{% endif %}>Pending</option>
+        <option value="Accepted" {% if referral.status == 'Accepted' %}selected{% endif %}>Accepted</option>
+        <option value="Rejected" {% if referral.status == 'Rejected' %}selected{% endif %}>Rejected</option>
+    </select>
+    <button type="submit">Update</button>
+</form>
+
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+</body>
+</html>

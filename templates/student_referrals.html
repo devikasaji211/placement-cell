@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Referral Requests</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #4a6bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .status-Pending { color: orange; font-weight: bold; }
+        .status-Accepted { color: green; font-weight: bold; }
+        .status-Rejected { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>My Referral Requests</h2>
+    {% if referrals %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Firm</th>
+                    <th>Branch</th>
+                    <th>Message</th>
+                    <th>Submitted</th>
+                    <th>Status</th>
+                    <th>Resume</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ref in referrals %}
+                    <tr>
+                        <td>{{ ref.vacancy.firm_name }}</td>
+                        <td>{{ ref.vacancy.branch }}</td>
+                        <td>{{ ref.message|truncatewords:10 }}</td>
+                        <td>{{ ref.submitted_at|date:"d M Y H:i" }}</td>
+                        <td class="status-{{ ref.status }}">{{ ref.status }}</td>
+                        <td>
+                            {% if ref.resume %}
+                                <a href="{{ ref.resume.url }}" target="_blank">View</a>
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>You have not submitted any referral requests yet.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Request Referral</title>
+</head>
+<body>
+    <h2>Request Referral for {{ vacancy.firm_name }} - {{ vacancy.branch }}</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label>Describe about yourself(Why would I refer you?)</label><br>
+        <textarea name="message" rows="5" cols="50" required></textarea><br><br>
+
+        <label>Upload Resume (PDF only):</label><br>
+        <input type="file" name="resume" accept=".pdf" required><br><br>
+
+        <button type="submit">Send Referral Request</button>
+    </form>
+
+    <p><a href="{% url 'student_page' %}">Back to Student Page</a></p>
+</body>
+</html>
