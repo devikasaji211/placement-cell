@@ -62,7 +62,13 @@ def student_register(request):
         orientation = request.POST.get('orientation', '') == 'on'
         itt = request.POST.get('itt', '') == 'on'
 
-        user = User.objects.create_user(username=username, password=password)
+        try:
+            user = User.objects.create_user(username=username, password=password)
+        except IntegrityError:
+            messages.error(request, "Username already exists. Please choose a different one.")
+            return redirect('student_register')
+
+        
         profile = StudentProfile.objects.create(
             user=user,
             name=name,

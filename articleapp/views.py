@@ -67,7 +67,13 @@ def article_register(request):
         email = request.POST['email']
         linkedin = request.POST.get('linkedin', '')
 
-        user = User.objects.create_user(username=username, password=password)
+        try:
+            user = User.objects.create_user(username=username, password=password)
+        except IntegrityError:
+            messages.error(request, "Username already exists. Please choose a different one.")
+            return redirect('article_register')
+
+        
         ArticleProfile.objects.create(
             user=user,
             name=name,
