@@ -9,5 +9,5 @@ urlpatterns = [
     path('referral-request/<int:vacancy_id>/', views.referral_request, name='referral_request'),
     path('student-referrals/', views.student_referrals, name='student_referrals'),
     path('student-notifications/', views.notifications_page, name='notifications_page'),
-    path('notifications/read/<int:notification_id>/', views.mark_notification_read, name='mark_notification_read'),
+    path('student-notifications/read/<int:notification_id>/', views.mark_notification_read, name='mark_notification_read'),
 ]

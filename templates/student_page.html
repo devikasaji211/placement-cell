@@ -429,6 +429,7 @@
             </div>
             {% endif %}
 
+
         <div class="detail-item">
             <strong>Posted:</strong>
             <span>{{ vacancy.posted_on|date:"d M Y" }}</span>
@@ -447,6 +448,110 @@
             <a href="{{ vacancy.linkedin }}" target="_blank">{{ vacancy.linkedin }}</a>
         </div>
         {% endif %}
+
+        <hr style="margin: 20px 0;">
+<h4>Work Area Ratings</h4>
+
+<div class="detail-item">
+    <strong>Statutory Audit:</strong>
+    <span>
+        {{ vacancy.statutory_audit_rating }}/5
+        {% for i in "12345" %}
+            {% if forloop.counter <= vacancy.statutory_audit_rating %}
+                <i class="fas fa-star" style="color: gold;"></i>
+            {% else %}
+                <i class="far fa-star" style="color: gold;"></i>
+            {% endif %}
+        {% endfor %}
+    </span>
+</div>
+
+<div class="detail-item">
+    <strong>Internal Audit:</strong>
+    <span>
+        {{ vacancy.internal_audit_rating }}/5
+        {% for i in "12345" %}
+            {% if forloop.counter <= vacancy.internal_audit_rating %}
+                <i class="fas fa-star" style="color: gold;"></i>
+            {% else %}
+                <i class="far fa-star" style="color: gold;"></i>
+            {% endif %}
+        {% endfor %}
+    </span>
+</div>
+
+<div class="detail-item">
+    <strong>Direct Taxes:</strong>
+    <span>
+        {{ vacancy.direct_tax_rating }}/5
+        {% for i in "12345" %}
+            {% if forloop.counter <= vacancy.direct_tax_rating %}
+                <i class="fas fa-star" style="color: gold;"></i>
+            {% else %}
+                <i class="far fa-star" style="color: gold;"></i>
+            {% endif %}
+        {% endfor %}
+    </span>
+</div>
+
+<div class="detail-item">
+    <strong>GST:</strong>
+    <span>
+        {{ vacancy.gst_rating }}/5
+        {% for i in "12345" %}
+            {% if forloop.counter <= vacancy.gst_rating %}
+                <i class="fas fa-star" style="color: gold;"></i>
+            {% else %}
+                <i class="far fa-star" style="color: gold;"></i>
+            {% endif %}
+        {% endfor %}
+    </span>
+</div>
+
+<div class="detail-item">
+    <strong>Compliance:</strong>
+    <span>
+        {{ vacancy.compliance_rating }}/5
+        {% for i in "12345" %}
+            {% if forloop.counter <= vacancy.compliance_rating %}
+                <i class="fas fa-star" style="color: gold;"></i>
+            {% else %}
+                <i class="far fa-star" style="color: gold;"></i>
+            {% endif %}
+        {% endfor %}
+    </span>
+</div>
+
+<div class="detail-item">
+    <strong>Consultancy:</strong>
+    <span>
+        {{ vacancy.consultancy_rating }}/5
+        {% for i in "12345" %}
+            {% if forloop.counter <= vacancy.consultancy_rating %}
+                <i class="fas fa-star" style="color: gold;"></i>
+            {% else %}
+                <i class="far fa-star" style="color: gold;"></i>
+            {% endif %}
+        {% endfor %}
+    </span>
+</div>
+
+{% if vacancy.other_specialisation %}
+<div class="detail-item">
+    <strong>{{ vacancy.other_specialisation }}:</strong>
+    <span>
+        {{ vacancy.other_specialisation_rating }}/5
+        {% for i in "12345" %}
+            {% if forloop.counter <= vacancy.other_specialisation_rating %}
+                <i class="fas fa-star" style="color: gold;"></i>
+            {% else %}
+                <i class="far fa-star" style="color: gold;"></i>
+            {% endif %}
+        {% endfor %}
+    </span>
+</div>
+{% endif %}
+
 
         <hr style="margin: 20px 0;">
         <h4>Article's Contact Details</h4>
@@ -468,6 +573,8 @@
             <span style="color: gray;"><i class="fas fa-info-circle"></i> Contact details not shared</span>
         </div>
         {% endif %}
+
+
     </div>
 </div>
 {% endfor %}

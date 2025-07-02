@@ -148,6 +148,24 @@
 </head>
 <body>
     <div class="registration-container">
+    {% if messages %}
+    {% for message in messages %}
+        <div style="grid-column: span 2; padding: 12px; margin-bottom: 20px; border-radius: 5px;
+            {% if message.tags == 'error' %}
+                border: 1px solid #ff4d4d;
+                background-color: #ffe6e6;
+                color: #c0392b;
+            {% else %}
+                border: 1px solid #00b894;
+                background-color: #e6fffa;
+                color: #00695c;
+            {% endif %}
+            font-weight: bold;">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
         <h2>Article Employee Registration</h2>
         <form method="POST">
             {% csrf_token %}

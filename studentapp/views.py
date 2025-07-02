@@ -49,7 +49,7 @@ def student_register(request):
 
         if password != confirm_password:
             messages.error(request, "Passwords do not match")
-            return redirect('student_register')
+            return render(request, 'student_register.html')
 
         name = request.POST['name']
         dob = request.POST['dob']

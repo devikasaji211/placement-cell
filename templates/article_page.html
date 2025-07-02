@@ -281,8 +281,8 @@
 </head>
 <body>
 
-<!-- Add this inside your <body>, probably in a navbar/header -->
-<a href="{% url 'notifications_page' %}" style="position: absolute; top: 20px; right: 30px; text-decoration: none; font-size: 24px;">
+
+<a href="{% url 'notification_page' %}" style="position: absolute; top: 20px; right: 30px; text-decoration: none; font-size: 24px;">
     <i class="fas fa-bell"></i>
     {% if unread_count > 0 %}
         <span style="color: red; font-size: 14px;">({{ unread_count }})</span>
@@ -290,6 +290,22 @@
 </a>
     <a href="{% url 'article_logout' %}">Logout</a>
     <div class="container">
+
+        {% if messages %}
+    {% for message in messages %}
+        <div style="
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border: 1px solid {% if message.tags == 'error' %}#ff4d4d{% else %}#00b894{% endif %};
+            background-color: {% if message.tags == 'error' %}#ffe6e6{% else %}#e6fffa{% endif %};
+            color: {% if message.tags == 'error' %}#c0392b{% else %}#00695c{% endif %};
+            font-weight: 500;">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
         <h1>Welcome, Article</h1>
 
         <h2>Article Profile</h2>

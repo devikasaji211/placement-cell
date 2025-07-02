@@ -12,6 +12,6 @@ urlpatterns =[
     path('view-referrals/<int:vacancy_id>/', views.view_referrals, name='view_referrals'),
     path('update-referral-status/<int:referral_id>/', views.update_referral_status, name='update_referral_status'),
     path('article-notification/', views.notification_page, name='notification_page'),
-    path('notifications/read/<int:notification_id>/', views.mark_notification_readarticle, name='mark_notification_readarticle'),
+    path('article-notifications/read/<int:notification_id>/', views.mark_notification_readarticle, name='mark_notification_readarticle'),
 
 ]

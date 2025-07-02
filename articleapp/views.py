@@ -54,7 +54,7 @@ def article_register(request):
 
         if password != confirm_password:
             messages.error(request, "Passwords do not match")
-            return redirect('article_register')
+            return render(request, 'article_register.html')
 
         name = request.POST['name']
         firm_name = request.POST['firm_name']
@@ -100,18 +100,29 @@ def add_vacancy(request):
         linkedin = request.POST.get('linkedin', '')
         share_contact = request.POST.get('share_contact') == 'on'
 
+        # Safely get rating fields with defaults
+        def get_rating(field):
+            value = request.POST.get(field)
+            return int(value) if value and value.isdigit() else 0
+
+        statutory_audit_rating = get_rating('statutory_audit_rating')
+        internal_audit_rating = get_rating('internal_audit_rating')
+        direct_tax_rating = get_rating('direct_tax_rating')
+        gst_rating = get_rating('gst_rating')
+        compliance_rating = get_rating('compliance_rating')
+        consultancy_rating = get_rating('consultancy_rating')
+        other_specialisation = request.POST.get('other_specialisation', '')
+        other_specialisation_rating = get_rating('other_specialisation_rating')
+
+        # Duplicate check
         norm_firm = ''.join(firm_name.lower().split())
         norm_branch = ''.join(branch.lower().split())
-
-        existing = VacancyPost.objects.all()
-        for v in existing:
-            existing_norm_firm = ''.join(v.firm_name.lower().split())
-            existing_norm_branch = ''.join(v.branch.lower().split())
-            if existing_norm_firm == norm_firm and existing_norm_branch == norm_branch:
+        for v in VacancyPost.objects.all():
+            if ''.join(v.firm_name.lower().split()) == norm_firm and ''.join(v.branch.lower().split()) == norm_branch:
                 messages.error(request, "Vacancy for this firm and branch already exists!")
                 return redirect('add_vacancy')
 
-
+        # Save to DB
         VacancyPost.objects.create(
             article=request.user,
             firm_name=firm_name,
@@ -124,7 +135,15 @@ def add_vacancy(request):
             stipend=stipend,
             website=website,
             linkedin=linkedin,
-            share_contact=share_contact
+            share_contact=share_contact,
+            statutory_audit_rating=statutory_audit_rating,
+            internal_audit_rating=internal_audit_rating,
+            direct_tax_rating=direct_tax_rating,
+            gst_rating=gst_rating,
+            compliance_rating=compliance_rating,
+            consultancy_rating=consultancy_rating,
+            other_specialisation=other_specialisation,
+            other_specialisation_rating=other_specialisation_rating,
         )
 
         messages.success(request, "Vacancy posted successfully!")
@@ -148,6 +167,21 @@ def edit_vacancy(request, id):
         vacancy.stipend = request.POST['stipend']
         vacancy.website = request.POST.get('website', '')
         vacancy.linkedin = request.POST.get('linkedin', '')
+        vacancy.share_contact = request.POST.get('share_contact') == 'on'
+
+        def get_rating(field):
+            value = request.POST.get(field)
+            return int(value) if value and value.isdigit() else 0
+
+        vacancy.statutory_audit_rating = get_rating('statutory_audit_rating')
+        vacancy.internal_audit_rating = get_rating('internal_audit_rating')
+        vacancy.direct_tax_rating = get_rating('direct_tax_rating')
+        vacancy.gst_rating = get_rating('gst_rating')
+        vacancy.compliance_rating = get_rating('compliance_rating')
+        vacancy.consultancy_rating = get_rating('consultancy_rating')
+        vacancy.other_specialisation = request.POST.get('other_specialisation', '')
+        vacancy.other_specialisation_rating = get_rating('other_specialisation_rating')
+
         vacancy.save()
         messages.success(request, 'Vacancy updated successfully.')
         return redirect('article_page')
