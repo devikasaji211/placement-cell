@@ -1,0 +1,272 @@
+{
+    "Andhra Pradesh": [
+        "Anantapur",
+        "Chittoor",
+        "East Godavari",
+        "Guntur"
+    ],
+    "Arunachal Pradesh": [
+        "Tawang",
+        "Papum Pare",
+        "East Siang",
+        "West Kameng"
+    ],
+    "Assam": [
+        "Kamrup",
+        "Dibrugarh",
+        "Nagaon",
+        "Tinsukia"
+    ],
+    "Bihar": [
+        "Patna",
+        "Gaya",
+        "Muzaffarpur",
+        "Bhagalpur"
+    ],
+    "Chhattisgarh": [
+        "Raipur",
+        "Bilaspur",
+        "Durg",
+        "Korba"
+    ],
+    "Goa": [
+        "North Goa",
+        "South Goa"
+    ],
+    "Gujarat": [
+        "Ahmedabad",
+        "Surat",
+        "Vadodara",
+        "Rajkot"
+    ],
+    "Haryana": [
+        "Gurugram",
+        "Faridabad",
+        "Panipat",
+        "Ambala"
+    ],
+    "Himachal Pradesh": [
+        "Shimla",
+        "Kangra",
+        "Mandi",
+        "Solan"
+    ],
+    "Jharkhand": [
+        "Ranchi",
+        "Jamshedpur",
+        "Dhanbad",
+        "Bokaro"
+    ],
+    "Karnataka": [
+        "Bengaluru",
+        "Mysuru",
+        "Mangaluru",
+        "Hubli",
+        "Belagavi",
+        "Ballari",
+        "Davangere",
+        "Shimoga",
+        "Udupi",
+        "Chitradurga",
+        "Hassan",
+        "Tumakuru",
+        "Kolar",
+        "Chikkamagaluru",
+        "Kodagu",
+        "Dakshina Kannada",
+        "Uttara Kannada",
+        "Chikkaballapura",
+        "Bagalkote",
+        "Bijapur",
+        "Gadag",
+        "Haveri"
+    ],
+    "Kerala": [
+        "Thiruvananthapuram",
+        "Kollam",
+        "Ernakulam",
+        "Kozhikode",
+        "Alappuzha",
+        "Kottayam",
+        "Idukki",
+        "Thrissur",
+        "Palakkad",
+        "Malappuram",
+        "Kozhikode",
+        "Wayanad",
+        "Kannur",
+        "Kasaragod"
+    ],
+    "Madhya Pradesh": [
+        "Bhopal",
+        "Indore",
+        "Jabalpur",
+        "Gwalior",
+        "Ujjain",
+        "Sagar",
+        "Rewa",
+        "Satna",
+        "Dewas",
+        "Ratlam",
+        "Khargone",
+        "Chhindwara",
+        "Sehore",
+        "Hoshangabad",
+        "Betul",
+        "Shivpuri",
+        "Tikamgarh",
+        "Damoh",
+        "Panna",
+        "Chhatarpur",
+        "Balaghat",
+        "Mandla",
+        "Dhar",
+        "Khandwa",
+        "Burhanpur",
+        "Rajgarh",
+        "Ashoknagar",
+        "Sheopur",
+        "Morena",
+        "Guna",
+        "Datia",
+        "Bhind",
+        "Sidhi",
+        "Singrauli"
+    ],
+    "Maharashtra": [
+        "Mumbai",
+        "Pune",
+        "Nagpur",
+        "Nashik"
+    ],
+    "Manipur": [
+        "Imphal East",
+        "Imphal West",
+        "Thoubal",
+        "Bishnupur"
+    ],
+    "Meghalaya": [
+        "East Khasi Hills",
+        "West Garo Hills",
+        "Ri Bhoi",
+        "South West Khasi Hills"
+    ],
+    "Mizoram": [
+        "Aizawl",
+        "Lunglei",
+        "Champhai",
+        "Serchhip"
+    ],
+    "Nagaland": [
+        "Kohima",
+        "Dimapur",
+        "Mokokchung",
+        "Tuensang"
+    ],
+    "Odisha": [
+        "Bhubaneswar",
+        "Cuttack",
+        "Sambalpur",
+        "Rourkela"
+    ],
+    "Punjab": [
+        "Ludhiana",
+        "Amritsar",
+        "Jalandhar",
+        "Patiala"
+    ],
+    "Rajasthan": [
+        "Jaipur",
+        "Jodhpur",
+        "Udaipur",
+        "Kota"
+    ],
+    "Sikkim": [
+        "East Sikkim",
+        "West Sikkim",
+        "North Sikkim",
+        "South Sikkim"
+    ],
+    "Tamil Nadu": [
+        "Chennai",
+        "Coimbatore",
+        "Madurai",
+        "Tiruchirappalli",
+        "Salem",
+        "Tirunelveli",
+        "Vellore",
+        "Thanjavur",
+        "Dindigul",
+        "Kanyakumari",
+        "Tiruppur",
+        "Erode",
+        "Karur",
+        "Namakkal",
+        "Krishnagiri",
+        "Dharmapuri",
+        "Thiruvarur",
+        "Nagapattinam",
+        "Theni",    
+        "Virudhunagar",
+        "Sivaganga",
+        "Pudukkottai",
+        "Ramanathapuram",
+        "Tiruvannamalai",
+        "Villupuram",
+        "Cuddalore",
+        "Kancheepuram",
+        "Thiruvallur",
+        "Tirupattur",
+        "Ranipet",
+        "Ariyalur",
+        "Perambalur",
+        "Nagapattinam"
+        
+    ],
+    "Telangana": [
+        "Hyderabad",
+        "Warangal",
+        "Nizamabad",
+        "Khammam"
+    ],
+    "Tripura": [
+        "Agartala",
+        "Dharmanagar",
+        "Udaipur",
+        "Kailasahar"
+    ],
+    "Uttar Pradesh": [
+        "Lucknow",
+        "Kanpur",
+        "Varanasi",
+        "Agra"
+    ],
+    "Uttarakhand": [
+        "Dehradun",
+        "Haridwar",
+        "Nainital",
+        "Almora"
+    ],
+    "West Bengal": [
+        "Kolkata",
+        "Howrah",
+        "Durgapur",
+        "Siliguri"
+    ],
+    "Delhi": [
+        "New Delhi",
+        "North Delhi",
+        "South Delhi",
+        "West Delhi"
+    ],
+    "Jammu and Kashmir": [
+        "Srinagar",
+        "Jammu",
+        "Baramulla",
+        "Anantnag"
+    ],
+    "Ladakh": [
+        "Leh",
+        "Kargil"
+    ]
+}
