@@ -25,7 +25,15 @@ SECRET_KEY = 'django-insecure-y43tkad&qnu=qx*x1dk!q#+8--j0=^@5%^!u-dvamx*vvr^t=*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+# settings.py
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://focusca-community.onrender.com'
+]
+
+ALLOWED_HOSTS = [
+    'focusca-community.onrender.com',  
+]
 
 
 # Application definition
