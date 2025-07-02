@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: ca-articleship-placement
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn ca_articleship_placement.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: ca_articleship_placement.settings
+      - key: PYTHON_VERSION
+        value: 3.10
