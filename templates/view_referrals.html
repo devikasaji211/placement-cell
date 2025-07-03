@@ -16,7 +16,7 @@
     </tr>
     {% for referral in referrals %}
     <tr>
-        <td>{{ referral.student.name }}</td>
+        <td>{{ referral.student.studentprofile.name }}</td>
         <td>{{ referral.message }}</td>
         <td><a href="{{ referral.resume.url }}">Download</a></td>
         <td>{{ referral.get_status_display }}</td>
