@@ -31,7 +31,7 @@ class ReferralRequest(models.Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='referral_requests')
     vacancy = models.ForeignKey(VacancyPost, on_delete=models.CASCADE, related_name='referral_requests')
     message = models.TextField()
-    resume = resume = models.URLField()
+    resume = models.URLField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
     submitted_at = models.DateTimeField(auto_now_add=True)
 
