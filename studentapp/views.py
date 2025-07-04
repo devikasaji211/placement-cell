@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from .models import StudentProfile, Notification
 from articleapp.models import VacancyPost
 from .models import ReferralRequest
-from ca_articleship_placement.supabase_client import supabase, SUPABASE_BUCKET
+from ca_articleship_placement.supabase_client import SUPABASE_URL, supabase, SUPABASE_BUCKET
 import uuid
 
 
@@ -116,7 +116,7 @@ def referral_request(request, vacancy_id):
             )
 
             # Get public URL
-            resume_url = supabase.storage.from_(SUPABASE_BUCKET).get_public_url(file_name)
+            resume_url = f"{SUPABASE_URL}/storage/v1/object/public/{SUPABASE_BUCKET}/{file_name}"
 
             # Save to DB
             ReferralRequest.objects.create(
