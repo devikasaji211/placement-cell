@@ -16,23 +16,25 @@
     </tr>
     {% for referral in referrals %}
     <tr>
-        <td>{{ referral.student.studentprofile.name }}</td>
-        <td>{{ referral.message }}</td>
+    <td>{{ referral.student.studentprofile.name }}</td>
+    <td>{{ referral.message }}</td>
+    <td>
         <a href="{{ referral.resume }}" target="_blank">View Resume</a>
-        <td>{{ referral.get_status_display }}</td>
-        <td>
-            <form method="POST" action="{% url 'update_referral_status' referral.id %}">
-    {% csrf_token %}
-    <select name="status">
-        <option value="Pending" {% if referral.status == 'Pending' %}selected{% endif %}>Pending</option>
-        <option value="Accepted" {% if referral.status == 'Accepted' %}selected{% endif %}>Accepted</option>
-        <option value="Rejected" {% if referral.status == 'Rejected' %}selected{% endif %}>Rejected</option>
-    </select>
-    <button type="submit">Update</button>
-</form>
+    </td>
+    <td>{{ referral.get_status_display }}</td>
+    <td>
+        <form method="POST" action="{% url 'update_referral_status' referral.id %}">
+            {% csrf_token %}
+            <select name="status">
+                <option value="Pending" {% if referral.status == 'Pending' %}selected{% endif %}>Pending</option>
+                <option value="Accepted" {% if referral.status == 'Accepted' %}selected{% endif %}>Accepted</option>
+                <option value="Rejected" {% if referral.status == 'Rejected' %}selected{% endif %}>Rejected</option>
+            </select>
+            <button type="submit">Update</button>
+        </form>
+    </td>
+</tr>
 
-        </td>
-    </tr>
     {% endfor %}
 </table>
 
