@@ -46,13 +46,12 @@
                         <td>{{ ref.message|truncatewords:10 }}</td>
                         <td>{{ ref.submitted_at|date:"d M Y H:i" }}</td>
                         <td class="status-{{ ref.status }}">{{ ref.status }}</td>
-                        <td>
-                            {% if ref.resume %}
-                                <a href="{{ referral.resume }}" target="_blank">View Resume</a>
-                            {% else %}
-                                N/A
-                            {% endif %}
-                        </td>
+                        {% if ref.resume %}
+    <a href="{{ ref.resume }}" target="_blank">View Resume</a>
+{% else %}
+    N/A
+{% endif %}
+
                     </tr>
                 {% endfor %}
             </tbody>
