@@ -102,37 +102,42 @@ def referral_request(request, vacancy_id):
     if request.method == 'POST':
         message = request.POST['message']
         resume = request.FILES['resume']
-
-# Generate unique file path
         file_name = f"{request.user.username}_{uuid.uuid4().hex}_{resume.name}"
 
-# Upload to Supabase bucket
-        supabase.storage.from_(SUPABASE_BUCKET).upload(
+        try:
+            # Read uploaded file as bytes
+            file_data = resume.read()
+
+            # Upload to Supabase
+            supabase.storage.from_(SUPABASE_BUCKET).upload(
                 path=file_name,
                 file=file_data,
                 file_options={"content-type": resume.content_type}
             )
 
+            # Get public URL
+            resume_url = supabase.storage.from_(SUPABASE_BUCKET).get_public_url(file_name)
 
-# Get public URL of resume
-        resume_url = supabase.storage.from_(SUPABASE_BUCKET).get_public_url(file_name)
+            # Save to DB
+            ReferralRequest.objects.create(
+                student=request.user,
+                vacancy=vacancy,
+                message=message,
+                resume=resume_url
+            )
 
-        # Save to model
-        ReferralRequest.objects.create(
-            student=request.user,
-            vacancy=vacancy,
-            message=message,
-            resume=resume_url  # Save URL instead of file
-        )
+            Notification.objects.create(
+                user=vacancy.article,
+                message=f"{request.user.username} requested a referral for {vacancy.firm_name} - {vacancy.branch}"
+            )
 
+            messages.success(request, "Referral request submitted successfully.")
+            return redirect('student_page')
 
-        Notification.objects.create(
-            user=vacancy.article,
-            message=f"{request.user.username} requested a referral for {vacancy.firm_name} - {vacancy.branch}"
-        )
-
-        messages.success(request, "Referral request submitted successfully.")
-        return redirect('student_page')
+        except Exception as e:
+            print("Supabase upload failed:", e)
+            messages.error(request, "There was an error uploading your resume.")
+            return redirect('referral_request', vacancy_id=vacancy_id)
 
     return render(request, 'referral_request.html', {'vacancy': vacancy})
 
