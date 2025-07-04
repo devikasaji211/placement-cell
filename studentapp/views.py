@@ -108,7 +108,7 @@ def referral_request(request, vacancy_id):
 
 # Upload to Supabase bucket
         supabase.storage.from_(SUPABASE_BUCKET).upload(
-            file=file_name,
+            path=file_name,
             file=resume,
             file_options={"content-type": resume.content_type},
         )
