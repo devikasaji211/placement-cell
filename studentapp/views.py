@@ -7,6 +7,9 @@ from django.shortcuts import get_object_or_404
 from .models import StudentProfile, Notification
 from articleapp.models import VacancyPost
 from .models import ReferralRequest
+from ca_articleship_placement.supabase_client import supabase, SUPABASE_BUCKET
+import uuid
+
 
 
 
@@ -100,13 +103,27 @@ def referral_request(request, vacancy_id):
         message = request.POST['message']
         resume = request.FILES['resume']
 
-        # Create referral request
+# Generate unique file path
+        file_name = f"{request.user.username}_{uuid.uuid4().hex}_{resume.name}"
+
+# Upload to Supabase bucket
+        supabase.storage.from_(SUPABASE_BUCKET).upload(
+            file=file_name,
+            file=resume,
+            file_options={"content-type": resume.content_type},
+        )
+
+# Get public URL of resume
+        resume_url = supabase.storage.from_(SUPABASE_BUCKET).get_public_url(file_name)
+
+        # Save to model
         ReferralRequest.objects.create(
             student=request.user,
             vacancy=vacancy,
             message=message,
-            resume=resume
+            resume=resume_url  # Save URL instead of file
         )
+
 
         Notification.objects.create(
             user=vacancy.article,
