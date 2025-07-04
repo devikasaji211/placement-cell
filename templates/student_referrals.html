@@ -3,25 +3,69 @@
 <head>
     <title>My Referral Requests</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background-color: #f4f6f9;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            background-color: white;
         }
+
         th, td {
-            padding: 12px;
-            border: 1px solid #ddd;
+            padding: 14px 18px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
         }
+
         th {
             background-color: #4a6bff;
             color: white;
+            text-transform: uppercase;
+            font-size: 14px;
         }
+
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-        .status-Pending { color: orange; font-weight: bold; }
-        .status-Accepted { color: green; font-weight: bold; }
-        .status-Rejected { color: red; font-weight: bold; }
+
+        .status-Pending {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .status-Accepted {
+            color: green;
+            font-weight: bold;
+        }
+
+        .status-Rejected {
+            color: red;
+            font-weight: bold;
+        }
+
+        a.resume-link {
+            color: #4a6bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a.resume-link:hover {
+            text-decoration: underline;
+        }
+
+        p {
+            color: #555;
+        }
     </style>
 </head>
 <body>
@@ -46,12 +90,13 @@
                         <td>{{ ref.message|truncatewords:10 }}</td>
                         <td>{{ ref.submitted_at|date:"d M Y H:i" }}</td>
                         <td class="status-{{ ref.status }}">{{ ref.status }}</td>
-                        {% if ref.resume %}
-    <a href="{{ ref.resume }}" target="_blank">View Resume</a>
-{% else %}
-    N/A
-{% endif %}
-
+                        <td>
+                            {% if ref.resume %}
+                                <a href="{{ ref.resume }}" target="_blank" class="resume-link">View Resume</a>
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -61,3 +106,5 @@
     {% endif %}
 </body>
 </html>
+<p>
+    <a href="{% url 'student_page' %}">Back to Student Page</a>
