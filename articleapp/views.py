@@ -22,7 +22,7 @@ def article_page(request):
     except ArticleProfile.DoesNotExist:
         return redirect('article_profile_register')  # or show a form or a message
 
-    vacancies = VacancyPost.objects.filter(posted_by=request.user).order_by('-posted_on')
+    vacancies = VacancyPost.objects.filter(article=request.user).order_by('-posted_on')
     unread_count = Notification.objects.filter(user=request.user, is_read=False).count()
     return render(request, 'articleapp/article_page.html', {
         'profile': profile,
