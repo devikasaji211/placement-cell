@@ -21,11 +21,6 @@
             border-bottom: 2px solid #e9ecef;
         }
 
-        .notification-link {
-            text-decoration: none;
-            color: inherit;
-        }
-
         .notification {
             padding: 1.2rem;
             margin-bottom: 0.8rem;
@@ -64,6 +59,23 @@
             margin-top: 0.5rem;
         }
 
+        .mark-read {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.3rem 0.8rem;
+            background-color: #4e73df;
+            color: white;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .mark-read:hover {
+            background-color: #3a56c0;
+            text-decoration: none;
+        }
+
         .empty-message {
             text-align: center;
             color: #6c757d;
@@ -99,14 +111,16 @@
 </head>
 <body>
     <h2>Your Notifications</h2>
+    
 
     {% for n in notifications %}
-        <a href="{% url 'student_referrals' %}" class="notification-link">
-            <div class="notification {% if not n.is_read %}unread{% endif %}">
-                {{ n.message }}
-                <small>({{ n.created_at|timesince }} ago)</small>
-            </div>
-        </a>
+        <div class="notification {% if not n.is_read %}unread{% endif %}">
+            {{ n.message }}
+            <small>({{ n.created_at|timesince }} ago)</small>
+            {% if not n.is_read %}
+                <a href="{% url 'mark_notification_read' n.id %}" class="mark-read">Mark as Read</a>
+            {% endif %}
+        </div>
     {% empty %}
         <p class="empty-message">No notifications yet. You're all caught up!</p>
     {% endfor %}
