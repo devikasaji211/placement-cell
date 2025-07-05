@@ -17,6 +17,8 @@ import uuid
 
 # Create your views here.
 
+from django.db.models import Q
+
 @login_required
 def student_page(request):
     try:
@@ -24,10 +26,38 @@ def student_page(request):
     except StudentProfile.DoesNotExist:
         profile = None
 
-    vacancies = VacancyPost.objects.filter()
+    search_query = request.GET.get('q', '')
+
+    if search_query:
+        vacancies = VacancyPost.objects.filter(
+            Q(firm_name__icontains=search_query) |
+            Q(branch__icontains=search_query) |
+            Q(other_branches__icontains=search_query)
+        )
+    else:
+        vacancies = VacancyPost.objects.all()
+
     unread_count = Notification.objects.filter(user=request.user, is_read=False).count()
 
-    return render(request, 'student_page.html', {'profile': profile, 'vacancies': vacancies, 'unread_count': unread_count})
+    return render(request, 'student_page.html', {
+        'profile': profile,
+        'vacancies': vacancies,
+        'unread_count': unread_count,
+        'search_query': search_query
+    })
+
+
+# @login_required
+# def student_page(request):
+#     try:
+#         profile = StudentProfile.objects.get(user=request.user)
+#     except StudentProfile.DoesNotExist:
+#         profile = None
+
+#     vacancies = VacancyPost.objects.filter()
+#     unread_count = Notification.objects.filter(user=request.user, is_read=False).count()
+
+#     return render(request, 'student_page.html', {'profile': profile, 'vacancies': vacancies, 'unread_count': unread_count})
 def student_login(request):
     if request.method == 'POST':
         username = request.POST['username']
