@@ -20,11 +20,11 @@ def article_page(request):
     try:
         profile = ArticleProfile.objects.get(user=request.user)
     except ArticleProfile.DoesNotExist:
-        return redirect('article_profile_register')  # or show a form or a message
+        return redirect('article_login')  # or show a form or a message
 
     vacancies = VacancyPost.objects.filter(article=request.user).order_by('-posted_on')
     unread_count = Notification.objects.filter(user=request.user, is_read=False).count()
-    return render(request, 'articleapp/article_page.html', {
+    return render(request, 'article_page.html', {
         'profile': profile,
         'vacancies': vacancies,
         'unread_count': unread_count
