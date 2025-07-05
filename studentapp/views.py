@@ -131,7 +131,7 @@ def referral_request(request, vacancy_id):
 
             Notification.objects.create(
                 user=vacancy.article,
-                message=f"{student_profile.name} requested a referral for {vacancy.firm_name} - {vacancy.branch}"
+                message=f"{student_profile.name} requested a referral for {vacancy.firm_name} - {vacancy.branch}",
                 vacancy=vacancy
             )
 
