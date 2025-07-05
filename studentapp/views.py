@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
-from .models import StudentProfile, Notification
+from .models import Bookmark, StudentProfile, Notification
 from articleapp.models import VacancyPost
 from .models import ReferralRequest
 from ca_articleship_placement.supabase_client import SUPABASE_URL, supabase, SUPABASE_BUCKET
@@ -187,3 +187,25 @@ def edit_student_profile(request):
         return redirect('student_dashboard')
 
     return render(request, 'edit_student_profile.html', {'profile': profile})
+
+
+
+@login_required
+def toggle_bookmark(request, vacancy_id):
+    vacancy = get_object_or_404(VacancyPost, id=vacancy_id)
+    bookmark, created = Bookmark.objects.get_or_create(student=request.user, vacancy=vacancy)
+
+    if not created:
+        bookmark.delete()
+        messages.info(request, "Bookmark removed.")
+    else:
+        messages.success(request, "Vacancy bookmarked.")
+
+    return redirect('student_page')
+
+@login_required
+def bookmarked_vacancies(request):
+    bookmarks = Bookmark.objects.filter(student=request.user).select_related('vacancy')
+    vacancies = [b.vacancy for b in bookmarks]
+
+    return render(request, 'bookmarked_vacancies.html', {'vacancies': vacancies})

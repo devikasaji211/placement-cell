@@ -48,3 +48,15 @@ class Notification(models.Model):
 
     def __str__(self):
         return f"To {self.user.username}: {self.message}"
+    
+
+class Bookmark(models.Model):
+    student = models.ForeignKey(User, on_delete=models.CASCADE)
+    vacancy = models.ForeignKey(VacancyPost, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('student', 'vacancy')
+
+    def __str__(self):
+        return f"{self.student.username} bookmarked {self.vacancy.firm_name} - {self.vacancy.branch}"

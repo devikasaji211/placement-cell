@@ -11,4 +11,6 @@ urlpatterns = [
     path('student-notifications/', views.notifications_page, name='notifications_page'),
     path('student-notifications/read/<int:notification_id>/', views.mark_notification_read, name='mark_notification_read'),
     path('edit-student-profile/', views.edit_student_profile, name='edit_student_profile'),
+    path('bookmark/<int:vacancy_id>/', views.toggle_bookmark, name='toggle_bookmark'),
+    path('bookmarks/', views.bookmarked_vacancies, name='bookmarked_vacancies'),
 ]
