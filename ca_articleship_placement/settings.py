@@ -33,7 +33,9 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 ALLOWED_HOSTS = [
-    'focusca-community.onrender.com',  
+    'focusca-community.onrender.com',
+    '127.0.0.1',
+    'localhost',
 ]
 
 

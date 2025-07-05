@@ -3,10 +3,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>FocusCA - Placement Assistance Program</title>
+    <title>FocusCA - Placement Cell</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Meta for SEO -->
+    <meta name="description" content="FocusCA Placement Cell – Empowering CA aspirants with mentorship, hostels, and doubt clearance groups. Join the community.">
+    <link rel="icon" href="{% static 'images/logo.png' %}" type="image/png">
+
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- AOS Scroll Animation -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background-color: #f5f9ff;
             font-family: 'Arial', sans-serif;
@@ -16,36 +29,40 @@
             flex-direction: column;
             min-height: 100vh;
             color: #2c3e50;
+            width: 100%;
         }
 
         .main-content {
             flex: 1;
+            padding: 60px 20px 40px;
+        }
+
+        .hero {
             text-align: center;
-            padding: 80px 20px 40px;
+            padding: 40px 20px;
         }
 
-        h1 {
+        .hero h1 {
             font-size: 2.8rem;
+            font-weight: 700;
             color: #0077cc;
-        }
-
-        .subtitle {
-            font-size: 1.4rem;
             margin-bottom: 10px;
         }
 
-        .logo {
-            width: 80px;
-            height: auto;
-            margin-bottom: 25px;
+        .highlight {
+            color: #003366;
         }
 
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            margin-top: 20px;
+        .hero .subtagline {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .hero .logo {
+            width: 80px;
+            margin-bottom: 10px;
         }
 
         .dropdown {
@@ -56,14 +73,52 @@
             width: 100%;
         }
 
-        .dropdown-menu a {
-            color: #2c3e50;
-            font-weight: 500;
+        .custom-dropdown {
+            border-radius: 10px;
+            border: 1px solid #cce6ff;
+            padding: 5px 0;
+            min-width: 220px;
+            background-color: #ffffff;
+            overflow: hidden;
+            box-shadow: 0 8px 18px rgba(0, 119, 204, 0.08);
+            transition: all 0.2s ease-in-out;
         }
 
-        .dropdown-menu a:hover {
+        .custom-dropdown .dropdown-item {
+            padding: 12px 20px;
+            font-weight: 500;
+            color: #2c3e50;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .custom-dropdown .dropdown-item:hover {
             background-color: #e6f0ff;
             color: #0077cc;
+            border-left: 3px solid #0077cc;
+            font-weight: 600;
+        }
+
+        .animate-dropdown {
+            animation: dropdownFade 0.2s ease-in-out;
+        }
+
+        @keyframes dropdownFade {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn:focus {
+            outline: 3px solid #cce6ff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 119, 204, 0.25);
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
         }
 
         .card {
@@ -81,6 +136,10 @@
             padding: 25px;
         }
 
+        .card-body p {
+            margin-bottom: 10px !important;
+        }
+
         .card-title {
             font-weight: 600;
             font-size: 1.3rem;
@@ -95,12 +154,21 @@
             margin-top: 50px;
         }
 
-        .initiatives h4 {
-            font-size: 1.5rem;
+        .section-heading-single-line {
+            font-size: 1.6rem;
+            font-weight: 700;
             color: #0077cc;
+            text-transform: uppercase;
             display: inline-block;
-            border-bottom: 4px solid #0077cc;
+            border-bottom: 3px solid #0077cc;
             padding-bottom: 4px;
+            margin-bottom: 10px;
+        }
+
+        .section-subtext {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 30px;
         }
 
         footer {
@@ -118,6 +186,7 @@
         .footer-content {
             max-width: 800px;
             margin: auto;
+            padding: 30px;
         }
 
         .social-icons a {
@@ -136,67 +205,89 @@
             font-size: 13px;
             color: #555;
         }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .subtagline {
+                font-size: 1.05rem;
+            }
+
+            .card-body {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
 
 <div class="main-content">
-    <h1>Placement Assistance</h1>
-    <div class="subtitle">by</div>
-    <img src="{% static 'images/logo.png' %}" alt="Focus CA Logo" class="logo">
+    <!-- HERO SECTION -->
+    <section class="hero" data-aos="fade-down">
+        <img src="{% static 'images/logo.png' %}" alt="Focus CA Logo" class="logo">
+        <h1> <span class="highlight">Placement Assistance</span></h1>
+        <div class="subtagline">Bridging Talent with Opportunity</div>
+        <div class="button-container">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle px-4 py-2 rounded-pill" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Login
+                </button>
+                <ul class="dropdown-menu shadow-sm custom-dropdown">
+                    <li><a class="dropdown-item custom-item" href="{% url 'article_login' %}">As Article</a></li>
+                    <li><a class="dropdown-item custom-item" href="{% url 'student_login' %}">As Student</a></li>
+                    <li><a class="dropdown-item custom-item" href="#">Admin Login</a></li>
+                </ul>
+            </div>
 
-    <!-- ✅ LOGIN AND REGISTER BUTTONS -->
-    <div class="button-container">
-        <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Login
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url 'article_login' %}">As Article</a></li>
-                <li><a class="dropdown-item" href="{% url 'student_login' %}">As Student</a></li>
-                <li><a class="dropdown-item" href="#">Admin Login</a></li>
-            </ul>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle px-4 py-2 rounded-pill" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Register
+                </button>
+                <ul class="dropdown-menu shadow custom-dropdown animate-dropdown">
+                    <li><a class="dropdown-item custom-item" href="{% url 'article_register' %}">As Article</a></li>
+                    <li><a class="dropdown-item custom-item" href="{% url 'student_register' %}">As Student</a></li>
+                </ul>
+            </div>
         </div>
+    </section>
 
-        <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Register
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url 'article_register' %}">As Article</a></li>
-                <li><a class="dropdown-item" href="{% url 'student_register' %}">As Student</a></li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- ✅ OUR OTHER INITIATIVES SECTION -->
+    <!-- INITIATIVES SECTION -->
     <div class="initiatives text-center">
-        <h4>OUR OTHER INITIATIVES</h4>
+        <h4 class="section-heading-single-line" data-aos="fade-up">OUR OTHER INITIATIVES</h4>
+        <p class="section-subtext" data-aos="fade-up" data-aos-delay="100">
+            More ways we support your CA journey
+        </p>
 
-        <!-- First Card: Focus Hostel -->
-        <div class="card mx-auto mt-4 shadow-sm" style="max-width: 500px;">
+        <!-- First Card -->
+        <div class="card mx-auto mt-4 shadow-sm" style="max-width: 500px;" data-aos="zoom-in">
             <div class="card-body">
                 <div class="text-center">
                     <img src="{% static 'images/logo.png' %}" alt="Focus Logo" style="width: 60px; margin-bottom: 10px;">
-                    <h5 class="card-title mt-2">Focus - hgkhgkjhgkjhk</h5>
+                    <h5 class="card-title mt-2">Focus - CA Only Boys Hostel</h5>
                 </div>
                 <div class="mt-3 mx-auto text-start" style="max-width: 85%; line-height: 1.6; font-size: 15.5px;">
-                    <p class="mb-2">Exclusive boys' hostel for CA students</p>
-                    <p class="mb-2">Proximity to major CA coaching centers</p>
-                    <p class="mb-2">Quiet and disciplined study atmosphere</p>
-                    <p class="mb-2">Curated peer group environment</p>
+                    <p>Exclusive boy's hostel for CA students</p>
+                    <p>Near top-tier CA coaching institutes</p>
+                    <p>Study-focused environment</p>
+                    <p>Curated peer group</p>
+                    <p>Access to study materials (past papers, question banks)</p>
+                    <p>Mentorship support available</p>
+                    <p>Wi-Fi connectivity</p>
+                    <p>Washing machine</p>
                 </div>
                 <h6 class="mt-4 text-center text-primary">Join the Waitlist for FREE</h6>
                 <div class="text-center mt-2">
-                    <a href="https://your-google-form-link.com" target="_blank" class="btn btn-primary px-4 py-2">
+                    <a href="https://forms.gle/YmsCnC2KzN6yPAnNA" target="_blank" class="btn btn-primary px-4 py-2">
                         Join Wishlist
                     </a>
                 </div>
             </div>
         </div>
 
-        <!-- Second Card: In Collaboration with Camaash -->
-        <div class="card mx-auto mt-5 shadow-sm" style="max-width: 600px;">
+        <!-- Second Card -->
+        <div class="card mx-auto mt-5 shadow-sm" style="max-width: 600px;" data-aos="zoom-in">
             <div class="card-body text-start">
                 <div class="text-center mb-3">
                     <small class="text-muted">In collaboration with</small><br>
@@ -221,13 +312,21 @@
     </div>
 </div>
 
+<!-- Scroll to Top -->
+<button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Back to Top"
+        style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; border: none; background-color: #0077cc; color: white; padding: 10px 15px; border-radius: 50px;">
+    ↑
+</button>
+
+<!-- FOOTER -->
 <footer>
     <div class="footer-content">
         <img src="{% static 'images/logo.png' %}" alt="Focus CA Logo" class="footer-logo"><br>
-        <p>Focus CA is a community-driven initiative to guide CA aspirants with real-world mentorship, opportunities, and support.</p>
+        <p>Focus CA Community is a growing space for CA aspirants and articles to connect, support, and grow together. From doubt clearance to mentorship and articleship placements, we’re building real initiatives that make the CA journey less lonely and more focused — together.</p>
+        <p><small>Follow us to stay updated on all our community initiatives.</small></p>
         <div class="social-icons">
-            <a href="https://www.instagram.com/focuscacommunity" target="_blank">Instagram</a> |
-            <a href="https://www.linkedin.com/company/focuscacommunity" target="_blank">LinkedIn</a>
+            <a href="https://www.instagram.com/focushostelatca.in?igsh=YXFxb3RpcnNyeG0w" target="_blank">Instagram</a> |
+            <a href="https://www.linkedin.com/company/gokul-p-u-ba7309299/" target="_blank">LinkedIn</a>
         </div>
         <div class="copyright">
             &copy; {{ now|date:"Y" }} Focus CA Community. All rights reserved.
@@ -235,6 +334,14 @@
     </div>
 </footer>
 
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 800,
+        once: true
+    });
+</script>
 </body>
 </html>

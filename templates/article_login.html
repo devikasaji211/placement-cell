@@ -170,6 +170,12 @@
 <body>
     <div class="login-container">
         <h2>Article Login</h2>
+        {% if error %}
+    <div style="background-color: #ffdddd; color: #d8000c; padding: 10px; border-radius: 6px; margin-bottom: 15px;">
+        <i class="fas fa-exclamation-circle" style="margin-right: 5px;"></i> {{ error }}
+    </div>
+{% endif %}
+
 
         <form method="POST">
             {% csrf_token %}
