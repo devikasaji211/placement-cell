@@ -274,3 +274,14 @@ def edit_article_profile(request):
         return redirect('article_page')
 
     return render(request, 'edit_article_profile.html', {'profile': profile})
+
+
+@login_required
+def open_notification_redirect(request, notification_id):
+    notification = get_object_or_404(Notification, id=notification_id, user=request.user)
+    notification.is_read = True
+    notification.save()
+
+    if notification.vacancy:
+        return redirect('view_referrals', vacancy_id=notification.vacancy.id)
+    return redirect('notification_page')

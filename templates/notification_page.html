@@ -113,16 +113,15 @@
     <h2>Article Notifications</h2>
 
     {% for n in notification %}
+    <a href="{% url 'open_notification_redirect' n.id %}" style="text-decoration: none; color: inherit;">
         <div class="notification {% if not n.is_read %}unread{% endif %}">
             {{ n.message }}
             <small>({{ n.created_at|timesince }} ago)</small>
-            {% if not n.is_read %}
-                <a href="{% url 'mark_notification_readarticle' n.id %}" class="mark-read">Mark as Read</a>
-            {% endif %}
         </div>
-    {% empty %}
-        <p class="empty-message">No article notifications yet. You're all caught up!</p>
-    {% endfor %}
+    </a>
+{% empty %}
+    <p class="empty-message">No article notifications yet. You're all caught up!</p>
+{% endfor %}
 
     <a href="{% url 'article_page' %}" class="back-link">Back to Dashboard</a>
 </body>
