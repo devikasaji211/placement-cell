@@ -1,156 +1,182 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Student Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-    body {
-        font-family: 'Arial', sans-serif;
-        background-color: #f5f9ff;
-        margin: 0;
-        padding: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        color: #2c3e50;
-    }
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --border-color: #3f37c9;
+            --accent-color: #4895ef;
+            --light-bg: #f8f9fa;
+            --text-color: #2b2d42;
+            --white: #ffffff;
+            --error-color: #f72585;
+            --error-bg: #ffe6e6;
+        }
 
-    .login-container {
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0, 119, 204, 0.1);
-        padding: 30px 25px;
-        width: 100%;
-        max-width: 400px;
-        text-align: center;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    h2 {
-        color: #0077cc;
-        margin-bottom: 25px;
-        font-size: 1.8rem;
-    }
-
-    form {
-        display: flex;
-        flex-direction: column;
-    }
-
-    label {
-        text-align: left;
-        margin-bottom: 5px;
-        font-weight: bold;
-        color: #0077cc;
-        font-size: 14px;
-    }
-
-    .input-group {
-        position: relative;
-        margin-bottom: 15px;
-    }
-
-    input {
-        padding: 10px 35px 10px 10px;
-        border: 1px solid #cce0ff;
-        border-radius: 4px;
-        font-size: 14px;
-        transition: border 0.3s;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    input:focus {
-        outline: none;
-        border-color: #0077cc;
-        box-shadow: 0 0 5px rgba(0, 119, 204, 0.3);
-    }
-
-    .toggle-password {
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        cursor: pointer;
-        color: #0077cc;
-        background: none;
-        border: none;
-        padding: 0;
-        width: 20px;
-        height: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .toggle-password i {
-        font-size: 16px;
-    }
-
-    button[type="submit"] {
-        background-color: #0077cc;
-        color: white;
-        border: none;
-        padding: 12px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-        font-weight: bold;
-        transition: background-color 0.3s;
-        margin-top: 10px;
-    }
-
-    button[type="submit"]:hover {
-        background-color: #005fa3;
-    }
-
-    .error {
-        color: #e74c3c;
-        background-color: #fde8e8;
-        padding: 10px;
-        border-radius: 4px;
-        margin-bottom: 20px;
-        font-size: 14px;
-    }
-
-    .register-link {
-        margin-top: 20px;
-        font-size: 14px;
-    }
-
-    a {
-        color: #0077cc;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    a:hover {
-        text-decoration: underline;
-    }
-
-    @media (max-width: 480px) {
         body {
-            padding: 15px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
         }
 
         .login-container {
-            padding: 20px 15px;
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.1);
+            padding: 30px;
+            width: 100%;
+            /* max-width: 400px; */
+            text-align: center;
         }
 
         h2 {
-            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-weight: 600;
         }
 
-        input, button {
-            font-size: 15px;
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        .toggle-password i {
-            font-size: 14px;
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
         }
-    }
-</style>
 
+        label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(72, 149, 239, 0.2);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--primary-color);
+            background: none;
+            border: none;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button[type="submit"] {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(67, 97, 238, 0.2);
+        }
+
+        .error {
+            color: var(--error-color);
+            background-color: var(--error-bg);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .register-link {
+            margin-top: 25px;
+            font-size: 0.95rem;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        /* Mobile-specific adjustments */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+                align-items: flex-start;
+                padding-top: 40px;
+            }
+
+            .login-container {
+                padding: 25px 20px;
+                border-radius: 10px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+
+            input {
+                padding: 12px 14px;
+            }
+
+            button[type="submit"] {
+                padding: 12px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="login-container">
@@ -162,15 +188,19 @@
 
         <form method="POST">
             {% csrf_token %}
-            <label>Username:</label>
-            <input type="text" name="username" required>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
 
-            <label>Password:</label>
-            <div class="input-group">
-                <input type="password" name="password" id="password" required>
-                <button type="button" class="toggle-password" onclick="togglePassword()">
-                    <i id="eye-icon" class="fas fa-eye"></i>
-                </button>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-group">
+                    <input type="password" id="password" name="password" required>
+                    <button type="button" class="toggle-password" onclick="togglePassword()">
+                        <i id="eye-icon" class="fas fa-eye"></i>
+                    </button>
+                </div>
             </div>
 
             <button type="submit">Login</button>
