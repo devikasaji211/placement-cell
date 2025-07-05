@@ -529,6 +529,13 @@
             {% endif %}
         </section>
 
+        <a href="{% url 'student_referrals' %}" class="btn btn-primary view-referrals-btn">
+                <i class="fas fa-list"></i> View My Referral Requests
+            </a>
+            <a href="{% url 'bookmarked_vacancies' %}" class="btn btn-outline view-referrals-btn" style="margin-left: 15px;">
+    <i class="fas fa-bookmark"></i> Bookmarked Vacancies
+</a>
+
         <section class="vacancies-section">
             <h2>Available Articleship Vacancies</h2>
 
@@ -773,13 +780,13 @@
             {% else %}
             <div class="no-data">No vacancies available at the moment.</div>
             {% endif %}
-
+<!-- 
             <a href="{% url 'student_referrals' %}" class="btn btn-primary view-referrals-btn">
                 <i class="fas fa-list"></i> View My Referral Requests
             </a>
             <a href="{% url 'bookmarked_vacancies' %}" class="btn btn-outline view-referrals-btn" style="margin-left: 15px;">
     <i class="fas fa-bookmark"></i> Bookmarked Vacancies
-</a>
+</a> -->
 
         </section>
     </div>

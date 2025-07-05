@@ -119,6 +119,8 @@ def referral_request(request, vacancy_id):
             # Get public URL
             resume_url = f"{SUPABASE_URL}/storage/v1/object/public/{SUPABASE_BUCKET}/{file_name}"
 
+            student_profile = request.user.studentprofile
+
             # Save to DB
             ReferralRequest.objects.create(
                 student=request.user,
@@ -129,7 +131,7 @@ def referral_request(request, vacancy_id):
 
             Notification.objects.create(
                 user=vacancy.article,
-                message=f"{request.user.username} requested a referral for {vacancy.firm_name} - {vacancy.branch}"
+                message=f"{student_profile.name} requested a referral for {vacancy.firm_name} - {vacancy.branch}"
             )
 
             messages.success(request, "Referral request submitted successfully.")
