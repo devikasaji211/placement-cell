@@ -464,11 +464,11 @@
 }
 
 
-.search-section {
+ .search-section {
         padding: 0 30px 20px;
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
     }
     
     .search-form {
@@ -476,30 +476,37 @@
         gap: 10px;
         max-width: 100%;
         flex-wrap: wrap;
+        align-items: center;
     }
     
     .search-input {
-        flex: 1;
-        min-width: 250px;
-        padding: 10px 15px;
-        border-radius: 8px;
+        flex: 0 0 300px; /* Fixed width instead of flex:1 */
+        padding: 8px 12px; /* Smaller padding */
+        border-radius: 6px;
         border: 1px solid var(--border-color);
-        font-size: 1rem;
+        font-size: 0.9rem; /* Slightly smaller font */
         transition: all 0.3s ease;
-        margin-top: 35px;
-    }
-    
-    .search-input:focus {
-        outline: none;
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        margin-top: 20px; /* Reduced top margin */
+        height: 38px; /* Fixed height */
     }
     
     .button-group {
         display: flex;
-        gap: 15px;
+        gap: 10px;
     }
-
+    
+    /* Make the search button more compact */
+    .search-btn {
+        padding: 8px 12px;
+        height: 38px;
+        font-size: 0.85rem;
+    }
+    
+    .clear-btn {
+        padding: 8px 12px;
+        height: 38px;
+        font-size: 0.85rem;
+    }
     </style>
 </head>
 <body>
@@ -584,18 +591,17 @@
             placeholder="Search by firm name or branch"
             class="search-input">
         <div class="button-group">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary search-btn">
                 <i class="fas fa-search"></i> Search
             </button>
             {% if search_query %}
-                <a href="{% url 'student_dashboard' %}" class="btn btn-outline">
+                <a href="{% url 'student_dashboard' %}" class="btn btn-outline clear-btn">
                     <i class="fas fa-times"></i> Clear
                 </a>
             {% endif %}
         </div>
     </form>
 </div>
-
         <section class="vacancies-section">
             <h2>Available Articleship Vacancies</h2>
 
