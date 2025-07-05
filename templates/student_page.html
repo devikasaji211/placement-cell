@@ -461,6 +461,42 @@
     color: #3f37c9;
 }
 
+
+.search-section {
+        padding: 0 30px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .search-form {
+        display: flex;
+        gap: 10px;
+        max-width: 100%;
+        flex-wrap: wrap;
+    }
+    
+    .search-input {
+        flex: 1;
+        min-width: 250px;
+        padding: 10px 15px;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .search-input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+    }
+    
+    .button-group {
+        display: flex;
+        gap: 15px;
+    }
+
     </style>
 </head>
 <body>
@@ -536,29 +572,25 @@
     <i class="fas fa-bookmark"></i> Bookmarked Vacancies
 </a>
 
-<div>
-    <form method="GET" style="margin-bottom: 20px;">
-    <input
-        type="text"
-        name="q"
-        value="{{ search_query }}"
-        placeholder="Search by firm name or branch"
-        style="
-            padding: 10px 15px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            font-size: 1rem;
-            width: 100%;
-            max-width: 400px;
-        ">
-    <button
-        type="submit"
-        class="btn btn-primary"
-        style="margin-left: 10px; padding: 10px 20px;">
-        <i class="fas fa-search"></i> Search
-    </button>
-</form>
-
+<div class="search-section">
+    <form method="GET" class="search-form">
+        <input
+            type="text"
+            name="q"
+            value="{{ search_query }}"
+            placeholder="Search by firm name or branch"
+            class="search-input">
+        <div class="button-group">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i> Search
+            </button>
+            {% if search_query %}
+                <a href="{% url 'student_dashboard' %}" class="btn btn-outline">
+                    <i class="fas fa-times"></i> Clear
+                </a>
+            {% endif %}
+        </div>
+    </form>
 </div>
 
         <section class="vacancies-section">
