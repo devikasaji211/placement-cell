@@ -214,11 +214,3 @@ def bookmarked_vacancies(request):
     return render(request, 'bookmarked_vacancies.html', {'vacancies': vacancies})
 
 
-@login_required
-def open_notification_redirect(request, notification_id):
-    notification = get_object_or_404(Notification, id=notification_id, user=request.user)
-    notification.is_read = True
-    notification.save()
-    return redirect('student_referrals')
-
-

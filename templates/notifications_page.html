@@ -101,16 +101,15 @@
     <h2>Your Notifications</h2>
 
     {% for n in notifications %}
-    <a href="{% url 'open_notification_redirect' n.id %}" class="notification-link">
-        <div class="notification {% if not n.is_read %}unread{% endif %}">
-            {{ n.message }}
-            <small>({{ n.created_at|timesince }} ago)</small>
-        </div>
-    </a>
-{% empty %}
-    <p class="empty-message">No notifications yet. You're all caught up!</p>
-{% endfor %}
-
+        <a href="{% url 'student_referrals' %}" class="notification-link">
+            <div class="notification {% if not n.is_read %}unread{% endif %}">
+                {{ n.message }}
+                <small>({{ n.created_at|timesince }} ago)</small>
+            </div>
+        </a>
+    {% empty %}
+        <p class="empty-message">No notifications yet. You're all caught up!</p>
+    {% endfor %}
 
     <a href="{% url 'student_page' %}" class="back-link">Back to Dashboard</a>
 </body>

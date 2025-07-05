@@ -13,6 +13,6 @@ urlpatterns = [
     path('edit-student-profile/', views.edit_student_profile, name='edit_student_profile'),
     path('bookmark/<int:vacancy_id>/', views.toggle_bookmark, name='toggle_bookmark'),
     path('bookmarks/', views.bookmarked_vacancies, name='bookmarked_vacancies'),
-    path('notification/open/<int:notification_id>/', views.open_notification_redirect, name='open_notification_redirect'),
+    # path('notification/open/<int:notification_id>/', views.open_notification_redirect, name='open_notification_redirect'),
 ]
 
