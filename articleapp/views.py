@@ -2,6 +2,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db import IntegrityError
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 
@@ -18,11 +20,16 @@ def article_page(request):
     try:
         profile = ArticleProfile.objects.get(user=request.user)
     except ArticleProfile.DoesNotExist:
-        profile = None
+        return redirect('article_profile_register')  # or show a form or a message
 
-    vacancies = VacancyPost.objects.filter(article=request.user)
+    vacancies = VacancyPost.objects.filter(posted_by=request.user).order_by('-posted_on')
     unread_count = Notification.objects.filter(user=request.user, is_read=False).count()
-    return render(request, 'article_page.html', {'profile': profile, 'vacancies': vacancies, 'unread_count': unread_count})
+    return render(request, 'articleapp/article_page.html', {
+        'profile': profile,
+        'vacancies': vacancies,
+        'unread_count': unread_count
+    })
+
 
 def article_login(request):
     if request.method == 'POST':
