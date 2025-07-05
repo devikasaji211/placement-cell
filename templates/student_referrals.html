@@ -77,7 +77,7 @@
                     <th>Firm</th>
                     <th>Branch</th>
                     <th>Message</th>
-                    <th>Submitted</th>
+                    <!-- <th>Submitted</th> -->
                     <th>Status</th>
                     <th>Resume</th>
                 </tr>
@@ -88,7 +88,7 @@
                         <td>{{ ref.vacancy.firm_name }}</td>
                         <td>{{ ref.vacancy.branch }}</td>
                         <td>{{ ref.message|truncatewords:10 }}</td>
-                        <td>{{ ref.submitted_at|date:"d M Y H:i" }}</td>
+                        <!-- <td>{{ ref.submitted_at|date:"d M Y H:i" }}</td> -->
                         <td class="status-{{ ref.status }}">{{ ref.status }}</td>
                         <td>
                             {% if ref.resume %}

@@ -233,8 +233,8 @@
         /* Vacancies Grid */
         .vacancies-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
             margin-top: 20px;
         }
 
@@ -273,8 +273,21 @@
             line-height: 1.6;
         }
 
-        .vacancy-meta p {
+        .meta-row {
+            display: flex;
             margin: 8px 0;
+            align-items: flex-start;
+        }
+
+        .meta-label {
+            color: var(--primary-color);
+            font-weight: 500;
+            min-width: 100px;
+            margin-right: 10px;
+        }
+
+        .meta-value {
+            flex: 1;
             word-break: break-word;
         }
 
@@ -365,6 +378,15 @@
             .vacancies-grid {
                 grid-template-columns: 1fr;
             }
+
+            .meta-row {
+                flex-direction: column;
+                gap: 2px;
+            }
+
+            .meta-label {
+                min-width: auto;
+            }
         }
 
         @media (max-width: 480px) {
@@ -445,17 +467,38 @@
                             <div class="vacancy-content">
                                 <strong>{{ vacancy.firm_name }}</strong>
                                 <div class="vacancy-meta">
-                                    <p><strong>Branch:</strong> {{ vacancy.branch }}</p>
-                                    <p><strong>Vacancies:</strong> {{ vacancy.vacancies }}</p>
-                                    <p><strong>Phone:</strong> {{ vacancy.phone }}</p>
-                                    <p><strong>Email:</strong> {{ vacancy.email }}</p>
+                                    <div class="meta-row">
+                                        <span class="meta-label">Branch:</span>
+                                        <span class="meta-value">{{ vacancy.branch }}</span>
+                                    </div>
+                                    <div class="meta-row">
+                                        <span class="meta-label">Vacancies:</span>
+                                        <span class="meta-value">{{ vacancy.vacancies }}</span>
+                                    </div>
+                                    <div class="meta-row">
+                                        <span class="meta-label">Phone:</span>
+                                        <span class="meta-value">{{ vacancy.phone }}</span>
+                                    </div>
+                                    <div class="meta-row">
+                                        <span class="meta-label">Email:</span>
+                                        <span class="meta-value">{{ vacancy.email }}</span>
+                                    </div>
                                     {% if vacancy.website %}
-                                        <p><strong>Website:</strong> <a href="{{ vacancy.website }}" target="_blank">Visit Website</a></p>
+                                    <div class="meta-row">
+                                        <span class="meta-label">Website:</span>
+                                        <span class="meta-value"><a href="{{ vacancy.website }}" target="_blank">Visit Website</a></span>
+                                    </div>
                                     {% endif %}
                                     {% if vacancy.linkedin %}
-                                        <p><strong>LinkedIn:</strong> <a href="{{ vacancy.linkedin }}" target="_blank">View Profile</a></p>
+                                    <div class="meta-row">
+                                        <span class="meta-label">LinkedIn:</span>
+                                        <span class="meta-value"><a href="{{ vacancy.linkedin }}" target="_blank">View Profile</a></span>
+                                    </div>
                                     {% endif %}
-                                    <p><em>Posted: {{ vacancy.posted_on|date:"d M Y" }}</em></p>
+                                    <div class="meta-row">
+                                        <span class="meta-label">Posted:</span>
+                                        <span class="meta-value">{{ vacancy.posted_on|date:"d M Y" }}</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="vacancy-actions">

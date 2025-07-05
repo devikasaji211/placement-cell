@@ -1,125 +1,317 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Edit Vacancy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Vacancy - {{ vacancy.firm_name }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --light-bg: #f8f9fa;
+            --text-color: #2b2d42;
+            --text-light: #6c757d;
+            --border-color: #e9ecef;
+            --white: #ffffff;
+            --success-color: #4cc9f0;
+            --error-color: #f72585;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f8f9fa;
-            padding: 40px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
         }
-        form {
-            background: white;
-            padding: 30px;
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent-color);
+            border-radius: 3px;
+        }
+
+        .form-card {
+            background-color: var(--white);
             border-radius: 10px;
-            max-width: 600px;
-            margin: auto;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 20px;
         }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
         label {
-            font-weight: bold;
-            margin-top: 15px;
             display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary-color);
         }
-        input, textarea {
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        input[type="url"],
+        textarea,
+        select {
             width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
+            padding: 12px;
+            border: 1px solid var(--border-color);
             border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
         }
-        button {
-            margin-top: 20px;
-            background-color: #4361ee;
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="email"]:focus,
+        input[type="url"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(72, 149, 239, 0.2);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .rating-section {
+            background-color: var(--light-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .rating-section h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .rating-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 10px 18px;
+            padding: 12px 24px;
             border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
             cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 10px;
         }
-        button:hover {
-            background-color: #3f37c9;
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(67, 97, 238, 0.2);
         }
-        h2 {
-            text-align: center;
-            color: #333;
+
+        .btn i {
+            margin-right: 8px;
         }
-        .section {
-            margin-bottom: 25px;
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .back-link:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .form-card {
+                padding: 20px;
+            }
+
+            .rating-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            input, textarea, select {
+                padding: 10px;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h2>Edit Articleship Vacancy</h2>
 
-    <h2>Edit Articleship Vacancy</h2>
+        <div class="form-card">
+            <form method="POST">
+                {% csrf_token %}
 
-    <form method="POST">
-        {% csrf_token %}
+                <div class="form-group">
+                    <label for="firm_name">Firm Name</label>
+                    <input type="text" id="firm_name" name="firm_name" value="{{ vacancy.firm_name }}" required>
+                </div>
 
-        <label>Firm Name:</label>
-        <input type="text" name="firm_name" value="{{ vacancy.firm_name }}" required>
+                <div class="form-group">
+                    <label for="branch">Branch</label>
+                    <input type="text" id="branch" name="branch" value="{{ vacancy.branch }}" required>
+                </div>
 
-        <label>Branch:</label>
-        <input type="text" name="branch" value="{{ vacancy.branch }}" required>
+                <div class="form-group">
+                    <label for="other_branches">Other Branches (comma separated)</label>
+                    <input type="text" id="other_branches" name="other_branches" value="{{ vacancy.other_branches }}">
+                </div>
 
-        <label>Other Branches:</label>
-        <input type="text" name="other_branches" value="{{ vacancy.other_branches }}">
+                <div class="form-group">
+                    <label for="vacancies">Number of Vacancies</label>
+                    <input type="number" id="vacancies" name="vacancies" value="{{ vacancy.vacancies }}" required min="1">
+                </div>
 
-        <label>Number of Vacancies:</label>
-        <input type="number" name="vacancies" value="{{ vacancy.vacancies }}" required>
+                <div class="form-group">
+                    <label for="phone">Phone (Application Purpose)</label>
+                    <input type="text" id="phone" name="phone" value="{{ vacancy.phone }}" required>
+                </div>
 
-        <label>Phone (Application Purpose):</label>
-        <input type="text" name="phone" value="{{ vacancy.phone }}" required>
+                <div class="form-group">
+                    <label for="email">Email (Application Purpose)</label>
+                    <input type="email" id="email" name="email" value="{{ vacancy.email }}" required>
+                </div>
 
-        <label>Email (Application Purpose):</label>
-        <input type="email" name="email" value="{{ vacancy.email }}" required>
+                <div class="form-group">
+                    <label for="stipend">Stipend (optional)</label>
+                    <input type="text" id="stipend" name="stipend" value="{{ vacancy.stipend }}">
+                </div>
 
-        <label>Stipend:</label>
-        <input type="text" name="stipend" value="{{ vacancy.stipend }}">
+                <div class="form-group">
+                    <label for="website">Website (optional)</label>
+                    <input type="url" id="website" name="website" value="{{ vacancy.website }}">
+                </div>
 
-        <label>Website:</label>
-        <input type="url" name="website" value="{{ vacancy.website }}">
+                <div class="form-group">
+                    <label for="linkedin">LinkedIn (optional)</label>
+                    <input type="url" id="linkedin" name="linkedin" value="{{ vacancy.linkedin }}">
+                </div>
 
-        <label>LinkedIn:</label>
-        <input type="url" name="linkedin" value="{{ vacancy.linkedin }}">
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" required>{{ vacancy.description }}</textarea>
+                </div>
 
-        <label>Description:</label>
-        <textarea name="description" required>{{ vacancy.description }}</textarea>
+                <div class="rating-section">
+                    <h4>Rate Work Area Exposure (1–5)</h4>
+                    <div class="rating-grid">
+                        <div class="form-group">
+                            <label for="statutory_audit_rating">Statutory Audit</label>
+                            <input type="number" id="statutory_audit_rating" name="statutory_audit_rating" min="1" max="5" value="{{ vacancy.statutory_audit_rating }}">
+                        </div>
 
-        <div class="section">
-            <h4>Rate Exposure (1–5)</h4>
+                        <div class="form-group">
+                            <label for="internal_audit_rating">Internal Audit</label>
+                            <input type="number" id="internal_audit_rating" name="internal_audit_rating" min="0" max="5" value="{{ vacancy.internal_audit_rating }}">
+                        </div>
 
-            <label>Statutory Audit:</label>
-            <input type="number" name="statutory_audit_rating" min="1" max="5" value="{{ vacancy.statutory_audit_rating }}">
+                        <div class="form-group">
+                            <label for="direct_tax_rating">Direct Taxes</label>
+                            <input type="number" id="direct_tax_rating" name="direct_tax_rating" min="0" max="5" value="{{ vacancy.direct_tax_rating }}">
+                        </div>
 
-            <label>Internal Audit:</label>
-            <input type="number" name="internal_audit_rating" min="0" max="5" value="{{ vacancy.internal_audit_rating }}">
+                        <div class="form-group">
+                            <label for="gst_rating">GST</label>
+                            <input type="number" id="gst_rating" name="gst_rating" min="0" max="5" value="{{ vacancy.gst_rating }}">
+                        </div>
 
-            <label>Direct Taxes:</label>
-            <input type="number" name="direct_tax_rating" min="0" max="5" value="{{ vacancy.direct_tax_rating }}">
+                        <div class="form-group">
+                            <label for="compliance_rating">Compliance</label>
+                            <input type="number" id="compliance_rating" name="compliance_rating" min="0" max="5" value="{{ vacancy.compliance_rating }}">
+                        </div>
 
-            <label>GST:</label>
-            <input type="number" name="gst_rating" min="0" max="5" value="{{ vacancy.gst_rating }}">
+                        <div class="form-group">
+                            <label for="consultancy_rating">Consultancy</label>
+                            <input type="number" id="consultancy_rating" name="consultancy_rating" min="0" max="5" value="{{ vacancy.consultancy_rating }}">
+                        </div>
 
-            <label>Compliance:</label>
-            <input type="number" name="compliance_rating" min="0" max="5" value="{{ vacancy.compliance_rating }}">
+                        <div class="form-group">
+                            <label for="other_specialisation">Specialisation (optional)</label>
+                            <input type="text" id="other_specialisation" name="other_specialisation" value="{{ vacancy.other_specialisation }}">
+                        </div>
 
-            <label>Consultancy:</label>
-            <input type="number" name="consultancy_rating" min="0" max="5" value="{{ vacancy.consultancy_rating }}">
+                        <div class="form-group">
+                            <label for="other_specialisation_rating">Specialisation Rating (1-5)</label>
+                            <input type="number" id="other_specialisation_rating" name="other_specialisation_rating" min="0" max="5" value="{{ vacancy.other_specialisation_rating }}">
+                        </div>
+                    </div>
+                </div>
 
-            <label>Specialisation (optional):</label>
-            <input type="text" name="other_specialisation" value="{{ vacancy.other_specialisation }}">
-
-            <label>Specialisation Rating (1-5):</label>
-            <input type="number" name="other_specialisation_rating" min="0" max="5" value="{{ vacancy.other_specialisation_rating }}">
+                <button type="submit" class="btn">
+                    <i class="fas fa-save"></i> Update Vacancy
+                </button>
+            </form>
         </div>
 
-        <button type="submit">Update Vacancy</button>
-    </form>
-
-    <p style="text-align: center; margin-top: 20px;">
-        <a href="{% url 'article_page' %}">← Back to Dashboard</a>
-    </p>
+        <a href="{% url 'article_page' %}" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
 </body>
 </html>
