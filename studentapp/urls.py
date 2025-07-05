@@ -10,4 +10,5 @@ urlpatterns = [
     path('student-referrals/', views.student_referrals, name='student_referrals'),
     path('student-notifications/', views.notifications_page, name='notifications_page'),
     path('student-notifications/read/<int:notification_id>/', views.mark_notification_read, name='mark_notification_read'),
+    path('edit-profile/', views.edit_student_profile, name='edit_student_profile'),
 ]

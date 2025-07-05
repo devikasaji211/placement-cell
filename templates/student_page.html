@@ -442,6 +442,23 @@
                 gap: 8px;
             }
         }
+
+        .edit-profile-btn {
+    color: #4361ee;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.edit-profile-btn i {
+    margin-right: 5px;
+}
+
+.edit-profile-btn:hover {
+    color: #3f37c9;
+}
+
     </style>
 </head>
 <body>
@@ -458,6 +475,9 @@
                         <span class="notification-badge">{{ unread_count }}</span>
                     {% endif %}
                 </a>
+                <a href="{% url 'edit_article_profile' %}" class="edit-profile-btn">
+        <i class="fas fa-user-edit"></i> Edit Profile
+    </a>
                 <a href="{% url 'student_logout' %}" class="logout-btn">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>

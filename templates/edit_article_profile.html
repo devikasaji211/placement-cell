@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Article Profile</title>
+    <style>
+        /* Same styling as before, trimmed for space */
+    </style>
+</head>
+<body>
+    <h2 style="text-align:center;">Edit Article Profile</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Name:</label>
+        <input type="text" name="name" value="{{ profile.name }}" required>
+
+        <label>Firm Name:</label>
+        <input type="text" name="firm_name" value="{{ profile.firm_name }}" required>
+
+        <label>Date of Birth:</label>
+        <input type="date" name="dob" value="{{ profile.dob|date:'Y-m-d' }}" required>
+
+        <label>SRO Number:</label>
+        <input type="text" name="sro" value="{{ profile.sro }}" required>
+
+        <label>State:</label>
+        <input type="text" name="state" value="{{ profile.state }}" required>
+
+        <label>District:</label>
+        <input type="text" name="district" value="{{ profile.district }}" required>
+
+        <label>Year of Commencement:</label>
+        <input type="text" name="year_of_commencement" value="{{ profile.year_of_commencement }}" required>
+
+        <label>Phone:</label>
+        <input type="text" name="phone" value="{{ profile.phone }}" required>
+
+        <label>Email:</label>
+        <input type="email" name="email" value="{{ profile.email }}" required>
+
+        <label>LinkedIn (optional):</label>
+        <input type="url" name="linkedin" value="{{ profile.linkedin }}">
+
+        <button type="submit">Save Changes</button>
+    </form>
+</body>
+</html>

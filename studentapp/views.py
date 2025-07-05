@@ -162,3 +162,27 @@ def mark_notification_read(request, notification_id):
 
 
     return redirect('notifications_page')
+
+
+@login_required
+def edit_student_profile(request):
+    try:
+        profile = StudentProfile.objects.get(user=request.user)
+    except StudentProfile.DoesNotExist:
+        return redirect('student_dashboard')
+
+    if request.method == 'POST':
+        profile.name = request.POST.get('name')
+        profile.dob = request.POST.get('dob')
+        profile.sro = request.POST.get('sro')
+        profile.state = request.POST.get('state')
+        profile.district = request.POST.get('district')
+        profile.phone = request.POST.get('phone')
+        profile.email = request.POST.get('email')
+        profile.linkedin = request.POST.get('linkedin')
+        profile.orientation_completed = 'orientation_completed' in request.POST
+        profile.itt_completed = 'itt_completed' in request.POST
+        profile.save()
+        return redirect('student_dashboard')
+
+    return render(request, 'edit_student_profile.html', {'profile': profile})

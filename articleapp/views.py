@@ -244,3 +244,26 @@ def mark_notification_readarticle(request, notification_id):
 
 
     return redirect('notification_page')
+
+@login_required
+def edit_article_profile(request):
+    try:
+        profile = ArticleProfile.objects.get(user=request.user)
+    except ArticleProfile.DoesNotExist:
+        return redirect('article_dashboard')
+
+    if request.method == 'POST':
+        profile.name = request.POST.get('name')
+        profile.firm_name = request.POST.get('firm_name')
+        profile.dob = request.POST.get('dob')
+        profile.sro = request.POST.get('sro')
+        profile.state = request.POST.get('state')
+        profile.district = request.POST.get('district')
+        profile.year_of_commencement = request.POST.get('year_of_commencement')
+        profile.phone = request.POST.get('phone')
+        profile.email = request.POST.get('email')
+        profile.linkedin = request.POST.get('linkedin')
+        profile.save()
+        return redirect('article_dashboard')
+
+    return render(request, 'edit_article_profile.html', {'profile': profile})

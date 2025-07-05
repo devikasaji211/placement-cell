@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Student Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            padding: 30px;
+        }
+        form {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+        input[type="text"], input[type="email"], input[type="date"], input[type="url"], select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        button {
+            margin-top: 20px;
+            background-color: #4361ee;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #3f37c9;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align:center;">Edit Your Profile</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Name:</label>
+        <input type="text" name="name" value="{{ profile.name }}" required>
+
+        <label>Date of Birth:</label>
+        <input type="date" name="dob" value="{{ profile.dob|date:'Y-m-d' }}" required>
+
+        <label>SRO Number:</label>
+        <input type="text" name="sro" value="{{ profile.sro }}" required>
+
+        <label>State:</label>
+        <input type="text" name="state" value="{{ profile.state }}" required>
+
+        <label>District:</label>
+        <input type="text" name="district" value="{{ profile.district }}" required>
+
+        <label>Phone:</label>
+        <input type="text" name="phone" value="{{ profile.phone }}" required>
+
+        <label>Email:</label>
+        <input type="email" name="email" value="{{ profile.email }}" required>
+
+        <label>LinkedIn (optional):</label>
+        <input type="url" name="linkedin" value="{{ profile.linkedin }}">
+
+        <label>
+            <input type="checkbox" name="orientation_completed" {% if profile.orientation_completed %}checked{% endif %}>
+            Orientation Completed
+        </label>
+
+        <label>
+            <input type="checkbox" name="itt_completed" {% if profile.itt_completed %}checked{% endif %}>
+            ITT Completed
+        </label>
+
+        <button type="submit">Save Changes</button>
+    </form>
+</body>
+</html>
