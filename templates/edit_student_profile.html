@@ -1,89 +1,215 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Student Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f5f9ff;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        color: #2c3e50;
+    }
+
+    .login-container {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 119, 204, 0.1);
+        padding: 30px 25px;
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    h2 {
+        color: #0077cc;
+        margin-bottom: 25px;
+        font-size: 1.8rem;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        text-align: left;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #0077cc;
+        font-size: 14px;
+    }
+
+    .input-group {
+        position: relative;
+        margin-bottom: 15px;
+    }
+
+    input {
+        padding: 10px 35px 10px 10px;
+        border: 1px solid #cce0ff;
+        border-radius: 4px;
+        font-size: 14px;
+        transition: border 0.3s;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: #0077cc;
+        box-shadow: 0 0 5px rgba(0, 119, 204, 0.3);
+    }
+
+    .toggle-password {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #0077cc;
+        background: none;
+        border: none;
+        padding: 0;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .toggle-password i {
+        font-size: 16px;
+    }
+
+    button[type="submit"] {
+        background-color: #0077cc;
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+        margin-top: 10px;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #005fa3;
+    }
+
+    .register-link {
+        margin-top: 20px;
+        font-size: 14px;
+    }
+
+    a {
+        color: #0077cc;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
         body {
-            font-family: Arial, sans-serif;
-            background: #f8f9fa;
-            padding: 30px;
+            padding: 15px;
         }
-        form {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+
+        .login-container {
+            padding: 20px 15px;
         }
-        label {
-            font-weight: bold;
-            display: block;
-            margin-top: 15px;
+
+        h2 {
+            font-size: 1.5rem;
         }
-        input[type="text"], input[type="email"], input[type="date"], input[type="url"], select {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+
+        input, button {
+            font-size: 15px;
         }
-        input[type="checkbox"] {
-            margin-right: 8px;
+
+        .toggle-password i {
+            font-size: 14px;
         }
-        button {
-            margin-top: 20px;
-            background-color: #4361ee;
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #3f37c9;
-        }
-    </style>
+    }
+</style>
+
 </head>
 <body>
-    <h2 style="text-align:center;">Edit Your Profile</h2>
-    <form method="POST">
-        {% csrf_token %}
-        <label>Name:</label>
-        <input type="text" name="name" value="{{ profile.name }}" required>
+    <div class="container">
+        <h2>Edit Your Profile</h2>
 
-        <label>Date of Birth:</label>
-        <input type="date" name="dob" value="{{ profile.dob|date:'Y-m-d' }}" required>
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" value="{{ profile.name }}" required>
+            </div>
 
-        <label>SRO Number:</label>
-        <input type="text" name="sro" value="{{ profile.sro }}" required>
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" value="{{ profile.dob|date:'Y-m-d' }}" required>
+            </div>
 
-        <label>State:</label>
-        <input type="text" name="state" value="{{ profile.state }}" required>
+            <div class="form-group">
+                <label for="sro">SRO Number</label>
+                <input type="text" id="sro" name="sro" value="{{ profile.sro }}" required>
+            </div>
 
-        <label>District:</label>
-        <input type="text" name="district" value="{{ profile.district }}" required>
+            <div class="form-group">
+                <label for="state">State</label>
+                <input type="text" id="state" name="state" value="{{ profile.state }}" required>
+            </div>
 
-        <label>Phone:</label>
-        <input type="text" name="phone" value="{{ profile.phone }}" required>
+            <div class="form-group">
+                <label for="district">District</label>
+                <input type="text" id="district" name="district" value="{{ profile.district }}" required>
+            </div>
 
-        <label>Email:</label>
-        <input type="email" name="email" value="{{ profile.email }}" required>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" value="{{ profile.phone }}" required>
+            </div>
 
-        <label>LinkedIn (optional):</label>
-        <input type="url" name="linkedin" value="{{ profile.linkedin }}">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="{{ profile.email }}" required>
+            </div>
 
-        <label>
-            <input type="checkbox" name="orientation_completed" {% if profile.orientation_completed %}checked{% endif %}>
-            Orientation Completed
-        </label>
+            <div class="form-group">
+                <label for="linkedin">LinkedIn (optional)</label>
+                <input type="url" id="linkedin" name="linkedin" value="{{ profile.linkedin }}">
+            </div>
 
-        <label>
-            <input type="checkbox" name="itt_completed" {% if profile.itt_completed %}checked{% endif %}>
-            ITT Completed
-        </label>
+            <div class="checkbox-group">
+                <input type="checkbox" id="orientation_completed" name="orientation_completed" {% if profile.orientation_completed %}checked{% endif %}>
+                <label for="orientation_completed">Orientation Completed</label>
+            </div>
 
-        <button type="submit">Save Changes</button>
-    </form>
+            <div class="checkbox-group">
+                <input type="checkbox" id="itt_completed" name="itt_completed" {% if profile.itt_completed %}checked{% endif %}>
+                <label for="itt_completed">ITT Completed</label>
+            </div>
+
+            <button type="submit" class="btn">
+                <i class="fas fa-save"></i> Save Changes
+            </button>
+        </form>
+
+        <a href="{% url 'student_page' %}" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
 </body>
 </html>

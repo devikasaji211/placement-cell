@@ -1,46 +1,236 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Article Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Same styling as before, trimmed for space */
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --light-bg: #f8f9fa;
+            --text-color: #2b2d42;
+            --text-light: #6c757d;
+            --border-color: #e9ecef;
+            --white: #ffffff;
+            --success-color: #4cc9f0;
+            --error-color: #f72585;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent-color);
+            border-radius: 3px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="email"],
+        input[type="url"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(72, 149, 239, 0.2);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(67, 97, 238, 0.2);
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .back-link:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            input, select {
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
-    <h2 style="text-align:center;">Edit Article Profile</h2>
-    <form method="POST">
-        {% csrf_token %}
-        <label>Name:</label>
-        <input type="text" name="name" value="{{ profile.name }}" required>
+    <div class="container">
+        <h2>Edit Article Profile</h2>
 
-        <label>Firm Name:</label>
-        <input type="text" name="firm_name" value="{{ profile.firm_name }}" required>
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" value="{{ profile.name }}" required>
+            </div>
 
-        <label>Date of Birth:</label>
-        <input type="date" name="dob" value="{{ profile.dob|date:'Y-m-d' }}" required>
+            <div class="form-group">
+                <label for="firm_name">Firm Name</label>
+                <input type="text" id="firm_name" name="firm_name" value="{{ profile.firm_name }}" required>
+            </div>
 
-        <label>SRO Number:</label>
-        <input type="text" name="sro" value="{{ profile.sro }}" required>
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" value="{{ profile.dob|date:'Y-m-d' }}" required>
+            </div>
 
-        <label>State:</label>
-        <input type="text" name="state" value="{{ profile.state }}" required>
+            <div class="form-group">
+                <label for="sro">SRO Number</label>
+                <input type="text" id="sro" name="sro" value="{{ profile.sro }}" required>
+            </div>
 
-        <label>District:</label>
-        <input type="text" name="district" value="{{ profile.district }}" required>
+            <div class="form-group">
+                <label for="state">State</label>
+                <input type="text" id="state" name="state" value="{{ profile.state }}" required>
+            </div>
 
-        <label>Year of Commencement:</label>
-        <input type="text" name="year_of_commencement" value="{{ profile.year_of_commencement }}" required>
+            <div class="form-group">
+                <label for="district">District</label>
+                <input type="text" id="district" name="district" value="{{ profile.district }}" required>
+            </div>
 
-        <label>Phone:</label>
-        <input type="text" name="phone" value="{{ profile.phone }}" required>
+            <div class="form-group">
+                <label for="year_of_commencement">Year of Commencement</label>
+                <input type="text" id="year_of_commencement" name="year_of_commencement" value="{{ profile.year_of_commencement }}" required>
+            </div>
 
-        <label>Email:</label>
-        <input type="email" name="email" value="{{ profile.email }}" required>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" value="{{ profile.phone }}" required>
+            </div>
 
-        <label>LinkedIn (optional):</label>
-        <input type="url" name="linkedin" value="{{ profile.linkedin }}">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="{{ profile.email }}" required>
+            </div>
 
-        <button type="submit">Save Changes</button>
-    </form>
+            <div class="form-group">
+                <label for="linkedin">LinkedIn (optional)</label>
+                <input type="url" id="linkedin" name="linkedin" value="{{ profile.linkedin }}">
+            </div>
+
+            <button type="submit" class="btn">
+                <i class="fas fa-save"></i> Save Changes
+            </button>
+        </form>
+
+        <a href="{% url 'article_page' %}" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
 </body>
 </html>
