@@ -15,4 +15,4 @@ urlpatterns = [
     path('bookmarks/', views.bookmarked_vacancies, name='bookmarked_vacancies'),
     path('notification/open/<int:notification_id>/', views.open_notification_redirect, name='open_notification_redirect'),
 ]
-]
+
