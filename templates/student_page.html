@@ -205,13 +205,15 @@
         }
 
         .vacancy-card {
-            background: var(--white);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
-        }
+    position: relative; /* <-- add this line */
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+}
+
 
         .vacancy-card:hover {
             transform: translateY(-5px);

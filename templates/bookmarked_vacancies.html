@@ -141,9 +141,9 @@
     <div class="container">
         <h1><i class="fas fa-bookmark"></i> My Bookmarked Vacancies</h1>
 
-        {% if bookmarked_vacancies %}
+        {% if vacancies %}
         <div class="vacancy-grid">
-            {% for vacancy in bookmarked_vacancies %}
+            {% for vacancy in vacancies %}
             <div class="vacancy-card">
                 <div class="vacancy-title">{{ vacancy.firm_name }}</div>
                 <div class="vacancy-meta">
