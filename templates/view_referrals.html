@@ -305,66 +305,73 @@
 
         <div class="table-responsive">
             <table class="referrals-table">
-                <thead>
-                    <tr>
-                        <th>Student</th>
-                        <th>Message</th>
-                        <th>Resume</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for referral in referrals %}
-                    <tr>
-                        <td data-label="Student">{{ referral.student.studentprofile.name }}</td>
-                        <td data-label="Message">{{ referral.message|truncatechars:50 }}</td>
-                        <td data-label="Resume">
-                            <a href="{{ referral.resume }}" target="_blank" class="resume-link">
-                                <i class="fas fa-file-pdf"></i> View
-                            </a>
-                        </td>
-                        <td data-label="Status">
-                            <span class="status status-{{ referral.status|lower }}">
-                                {{ referral.get_status_display }}
-                            </span>
-                        </td>
-                       <td data-label="Actions">
-    <form method="POST" action="{% url 'update_referral_status' referral.id %}" class="action-form">
-        {% csrf_token %}
-        <select name="status">
-            <option value="Pending" {% if referral.status == 'Pending' %}selected{% endif %}>Pending</option>
-            <option value="Accepted" {% if referral.status == 'Accepted' %}selected{% endif %}>Accepted</option>
-            <option value="Rejected" {% if referral.status == 'Rejected' %}selected{% endif %}>Rejected</option>
-        </select>
-        <button type="submit" class="btn">
-            <i class="fas fa-sync-alt"></i> Update
-        </button>
-        <button type="button" class="btn" onclick="openModal('modal-{{ referral.id }}')">
-            <i class="fas fa-eye"></i> View More
-        </button>
-    </form>
-</td>
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>Resume</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for referral in referrals %}
+        <tr>
+            <td data-label="Student">{{ referral.student.studentprofile.name }}</td>
 
-                    </tr>
+            <td data-label="Resume">
+                {% if referral.resume %}
+                    <a href="{{ referral.resume }}" target="_blank" class="resume-link">
+                        <i class="fas fa-file-pdf"></i> View
+                    </a>
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
 
-                    <div class="modal" id="modal-{{ referral.id }}">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeModal('modal-{{ referral.id }}')">&times;</span>
-        <h3>Student Profile</h3>
-        <p><strong>Name:</strong> {{ referral.student.studentprofile.name }}</p>
-        <p><strong>SRO Number:</strong> {{ referral.student.studentprofile.sro_number }}</p>
-        <p><strong>Email:</strong> {{ referral.student.email }}</p>
-        <p><strong>State:</strong> {{ referral.student.studentprofile.state }}</p>
-        <hr>
-        <h4>Referral Message</h4>
-        <p>{{ referral.message }}</p>
-    </div>
-</div>
+            <td data-label="Status">
+                <form method="POST" action="{% url 'update_referral_status' referral.id %}" class="action-form">
+                    {% csrf_token %}
+                    <select name="status">
+                        <option value="Pending" {% if referral.status == 'Pending' %}selected{% endif %}>Pending</option>
+                        <option value="Accepted" {% if referral.status == 'Accepted' %}selected{% endif %}>Accepted</option>
+                        <option value="Rejected" {% if referral.status == 'Rejected' %}selected{% endif %}>Rejected</option>
+                    </select>
+                    <button type="submit" class="btn"><i class="fas fa-sync-alt"></i> Update</button>
+                </form>
+            </td>
 
-                    {% endfor %}
-                </tbody>
-            </table>
+            <td data-label="Actions">
+                <button type="button" class="btn" onclick="openModal('modal-{{ referral.id }}')">
+                    <i class="fas fa-eye"></i> View More
+                </button>
+            </td>
+        </tr>
+
+        <!-- Modal for View More -->
+        <div class="modal" id="modal-{{ referral.id }}">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal('modal-{{ referral.id }}')">&times;</span>
+                <h3>Student Profile</h3>
+                <p><strong>Name:</strong> {{ referral.student.studentprofile.name }}</p>
+                <p><strong>SRO Number:</strong> {{ referral.student.studentprofile.sro }}</p>
+                <p><strong>Email:</strong> {{ referral.student.email }}</p>
+                <p><strong>Phone:</strong> {{ referral.student.studentprofile.phone }}</p>
+                <p><strong>State:</strong> {{ referral.student.studentprofile.state }}</p>
+                <p><strong>District:</strong> {{ referral.student.studentprofile.district }}</p>
+                <p><strong>Orientation:</strong> {{ referral.student.studentprofile.orientation_completed|yesno:"Completed,Pending" }}</p>
+                <p><strong>ITT:</strong> {{ referral.student.studentprofile.itt_completed|yesno:"Completed,Pending" }}</p>
+                {% if referral.student.studentprofile.linkedin %}
+                <p><strong>LinkedIn:</strong> <a href="{{ referral.student.studentprofile.linkedin }}" target="_blank">View</a></p>
+                {% endif %}
+                <hr>
+                <h4>Referral Message</h4>
+                <p>{{ referral.message }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </tbody>
+</table>
+
         </div>
 
         <a href="{% url 'article_page' %}" class="back-link">
@@ -374,22 +381,19 @@
 
     <script>
     function openModal(id) {
-        document.getElementById(id).style.display = 'block';
-    }
+    document.getElementById(id).style.display = 'block';
+}
+function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+}
+window.onclick = function(event) {
+    document.querySelectorAll('.modal').forEach(function(modal) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+}
 
-    function closeModal(id) {
-        document.getElementById(id).style.display = 'none';
-    }
-
-    // Close modal on outside click
-    window.onclick = function(event) {
-        const modals = document.querySelectorAll('.modal');
-        modals.forEach(modal => {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        });
-    }
 </script>
 
 </body>
