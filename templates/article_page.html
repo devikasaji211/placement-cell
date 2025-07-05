@@ -180,30 +180,6 @@
             font-weight: 500;
         }
 
-        /* Messages */
-        .messages {
-            margin-bottom: 30px;
-        }
-
-        .message {
-            padding: 12px 16px;
-            margin-bottom: 15px;
-            border-radius: 6px;
-            font-weight: 500;
-        }
-
-        .message.error {
-            border: 1px solid var(--error-color);
-            background-color: var(--error-bg);
-            color: var(--error-color);
-        }
-
-        .message.success {
-            border: 1px solid var(--success-color);
-            background-color: var(--success-bg);
-            color: var(--success-color);
-        }
-
         /* Buttons */
         .btn {
             display: inline-flex;
@@ -276,7 +252,6 @@
         .meta-row {
             display: flex;
             margin: 8px 0;
-            align-items: flex-start;
         }
 
         .meta-label {
@@ -379,13 +354,21 @@
                 grid-template-columns: 1fr;
             }
 
+            /* Mobile-specific vacancy listing styles */
             .meta-row {
                 flex-direction: column;
-                gap: 2px;
+                margin: 12px 0;
             }
 
             .meta-label {
-                min-width: auto;
+                min-width: 100%;
+                margin-right: 0;
+                margin-bottom: 4px;
+                font-weight: 600;
+            }
+
+            .meta-value {
+                padding-left: 10px;
             }
         }
 
@@ -424,7 +407,7 @@
         </header>
 
         <div class="main-content">
-            {% if messages %}
+            <!-- {% if messages %}
                 <div class="messages">
                     {% for message in messages %}
                         <div class="message {% if message.tags == 'error' %}error{% else %}success{% endif %}">
@@ -432,7 +415,7 @@
                         </div>
                     {% endfor %}
                 </div>
-            {% endif %}
+            {% endif %} -->
 
             <h2>Article Profile</h2>
 
