@@ -3,20 +3,109 @@
 <head>
     <title>Notifications</title>
     <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #f8f9fa;
+            color: #212529;
+            line-height: 1.6;
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e9ecef;
+        }
+
         .notification {
-            padding: 10px;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #ccc;
+            padding: 1.2rem;
+            margin-bottom: 0.8rem;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .notification:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         .unread {
-            background-color: #f0f4ff;
-            font-weight: bold;
+            background-color: #f8f9ff;
+            border-left: 4px solid #4e73df;
+            position: relative;
         }
 
-        a {
-            margin-left: 10px;
-            font-size: 0.9em;
+        .unread::before {
+            content: "";
+            position: absolute;
+            left: -4px;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background-color: #4e73df;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .notification small {
+            color: #6c757d;
+            font-size: 0.85rem;
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        .mark-read {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.3rem 0.8rem;
+            background-color: #4e73df;
+            color: white;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .mark-read:hover {
+            background-color: #3a56c0;
+            text-decoration: none;
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #6c757d;
+            padding: 2rem;
+            font-style: italic;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding: 0.6rem 1rem;
+            background-color: #4e73df;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .back-link:hover {
+            background-color: #3a56c0;
+            text-decoration: none;
+        }
+
+        .back-link::before {
+            content: "←";
+            margin-right: 0.5rem;
         }
     </style>
 </head>
@@ -28,13 +117,13 @@
             {{ n.message }}
             <small>({{ n.created_at|timesince }} ago)</small>
             {% if not n.is_read %}
-                <a href="{% url 'mark_notification_read' n.id %}">Mark as Read</a>
+                <a href="{% url 'mark_notification_read' n.id %}" class="mark-read">Mark as Read</a>
             {% endif %}
         </div>
     {% empty %}
-        <p>No notifications yet.</p>
+        <p class="empty-message">No notifications yet. You're all caught up!</p>
     {% endfor %}
 
-    <a href="{% url 'student_page' %}">← Back</a>
+    <a href="{% url 'student_page' %}" class="back-link">Back to Dashboard</a>
 </body>
 </html>
