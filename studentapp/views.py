@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from .models import Bookmark, StudentProfile, Notification
@@ -120,6 +121,12 @@ def student_register(request):
         return redirect('student_login')
 
     return render(request, 'student_register.html')
+
+def check_username_availability(request):
+    username = request.GET.get('username', None)
+    exists = User.objects.filter(username=username).exists()
+    return JsonResponse({'available': not exists})
+
 
 
 def student_logout(request):

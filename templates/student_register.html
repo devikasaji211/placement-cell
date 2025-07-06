@@ -184,9 +184,11 @@
         <form method="POST">
             {% csrf_token %}
             <div class="form-group">
-                <label>Username:</label>
-                <input type="text" name="username" required>
-            </div>
+    <label>Username:</label>
+    <input type="text" name="username" id="username" required>
+    <small id="username-status" style="font-size: 13px; display: block; margin-top: 5px;"></small>
+</div>
+
 
             <div class="form-group">
                 <label>Password:</label>
@@ -271,52 +273,86 @@
     </div>
 
     <script>
-        // Password toggle function
-        function togglePassword(fieldId) {
-            const passwordInput = document.getElementById(fieldId);
-            const eyeIcon = passwordInput.nextElementSibling.querySelector('i');
+document.addEventListener("DOMContentLoaded", function () {
+    // ===== Username Availability Check =====
+    const usernameInput = document.getElementById("username");
+    const statusText = document.getElementById("username-status");
 
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                eyeIcon.classList.remove('fa-eye');
-                eyeIcon.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                eyeIcon.classList.remove('fa-eye-slash');
-                eyeIcon.classList.add('fa-eye');
+    if (usernameInput && statusText) {
+        usernameInput.addEventListener("input", function () {
+            const username = usernameInput.value.trim();
+
+            if (username.length === 0) {
+                statusText.textContent = '';
+                return;
             }
-        }
 
-        // State and district dropdowns
-        document.addEventListener("DOMContentLoaded", function () {
-            const stateSelect = document.getElementById("state");
-            const districtSelect = document.getElementById("district");
-
-            fetch("{% static 'js/states_and_districts.json' %}")
+            fetch(`/student/check-username/?username=${username}`)
                 .then(response => response.json())
                 .then(data => {
-                    for (let state in data) {
-                        let option = document.createElement("option");
-                        option.value = state;
-                        option.textContent = state;
-                        stateSelect.appendChild(option);
+                    if (data.available) {
+                        statusText.textContent = "✅ Username is available";
+                        statusText.style.color = "green";
+                    } else {
+                        statusText.textContent = "❌ Username already exists";
+                        statusText.style.color = "red";
                     }
-
-                    stateSelect.addEventListener("change", function () {
-                        const selectedState = this.value;
-                        const districts = data[selectedState] || [];
-
-                        districtSelect.innerHTML = '<option value="">Select District</option>';
-                        districts.forEach(district => {
-                            let option = document.createElement("option");
-                            option.value = district;
-                            option.textContent = district;
-                            districtSelect.appendChild(option);
-                        });
-                    });
                 })
-                .catch(error => console.error("Failed to load state/district data:", error));
+                .catch(() => {
+                    statusText.textContent = "Could not check availability.";
+                    statusText.style.color = "gray";
+                });
         });
-    </script>
+    }
+
+    // ===== State and District Dropdown Logic =====
+    const stateSelect = document.getElementById("state");
+    const districtSelect = document.getElementById("district");
+
+    if (stateSelect && districtSelect) {
+        fetch("{% static 'js/states_and_districts.json' %}")
+            .then(response => response.json())
+            .then(data => {
+                for (let state in data) {
+                    let option = document.createElement("option");
+                    option.value = state;
+                    option.textContent = state;
+                    stateSelect.appendChild(option);
+                }
+
+                stateSelect.addEventListener("change", function () {
+                    const selectedState = this.value;
+                    const districts = data[selectedState] || [];
+
+                    districtSelect.innerHTML = '<option value="">Select District</option>';
+                    districts.forEach(district => {
+                        let option = document.createElement("option");
+                        option.value = district;
+                        option.textContent = district;
+                        districtSelect.appendChild(option);
+                    });
+                });
+            })
+            .catch(error => console.error("Failed to load state/district data:", error));
+    }
+});
+
+// ===== Password Toggle Function =====
+function togglePassword(fieldId) {
+    const passwordInput = document.getElementById(fieldId);
+    const eyeIcon = passwordInput.nextElementSibling.querySelector('i');
+
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
+    } else {
+        passwordInput.type = 'password';
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
+    }
+}
+</script>
+
 </body>
 </html>
