@@ -60,10 +60,35 @@
             margin-bottom: 20px;
         }
 
-        .hero .logo {
+        /* Logo sizing for desktop */
+        .logo {
             width: 137px;
+            height: auto;
+            max-height: 115px;
             margin-bottom: 10px;
-            height: 115px;
+            object-fit: contain;
+        }
+        
+        .footer-logo {
+            width: 93px;
+            height: auto;
+            max-height: 83px;
+            object-fit: contain;
+        }
+        
+        .initiative-logo {
+            width: 168px;
+            height: auto;
+            max-height: 137px;
+            margin-bottom: 10px;
+            object-fit: contain;
+        }
+        
+        .partner-logo {
+            height: 80px;
+            width: auto;
+            max-width: 110px;
+            object-fit: contain;
         }
 
         .dropdown {
@@ -179,11 +204,6 @@
             margin-top: auto;
         }
 
-        .footer-logo {
-            width: 93px;
-            height: 83px;
-        }
-
         .footer-content {
             max-width: 800px;
             margin: auto;
@@ -207,6 +227,7 @@
             color: #555;
         }
 
+        /* Mobile adjustments */
         @media (max-width: 576px) {
             .hero h1 {
                 font-size: 2rem;
@@ -219,9 +240,28 @@
             .card-body {
                 padding: 20px;
             }
+            
+            /* Mobile logo adjustments */
+            .logo {
+                width: 100px;
+                max-height: 90px;
+            }
+            
+            .footer-logo {
+                width: 80px;
+                max-height: 70px;
+            }
+            
+            .initiative-logo {
+                width: 140px;
+                max-height: 120px;
+            }
+            
+            .partner-logo {
+                height: 60px;
+                max-width: 90px;
+            }
         }
-
-        
     </style>
 </head>
 <body>
@@ -267,7 +307,7 @@
         <div class="card mx-auto mt-4 shadow-sm" style="max-width: 500px;" data-aos="zoom-in">
             <div class="card-body">
                 <div class="text-center">
-                    <img src="{% static 'images/logo.png' %}" alt="Focus Logo" style="width: 168px; margin-bottom: 10px; height: 137px;">
+                    <img src="{% static 'images/logo.png' %}" alt="Focus Logo" class="initiative-logo">
                     <h5 class="card-title mt-2">Focus - CA Only Boys Hostel</h5>
                 </div>
                 <div class="mt-3 mx-auto text-start" style="max-width: 85%; line-height: 1.6; font-size: 15.5px;">
@@ -295,7 +335,7 @@
                 <div class="text-center mb-3">
                     <small class="text-muted">In collaboration with</small><br>
                     <div class="d-flex justify-content-center align-items-center gap-3 mt-2">
-                        <img src="{% static 'images/camaash_logo.png' %}" alt="Camaash Logo" style="height: 80px; width: 110px;">
+                        <img src="{% static 'images/camaash_logo.png' %}" alt="Camaash Logo" class="partner-logo">
                         <div style="border-left: 2px solid #ccc; height: 40px;"></div>
                         <span class="fst-italic">From Basic to Brilliance</span>
                     </div>
@@ -324,8 +364,8 @@
 <!-- FOOTER -->
 <footer>
     <div class="footer-content">
-        <img src="{% static 'images/focus_logo.png' %}" alt="Focus CA Logo" class="footer-logo" ><br>
-        <p>Focus CA Community is a growing space for CA aspirants and articles to connect, support, and grow together. From doubt clearance to mentorship and articleship placements, we’re building real initiatives that make the CA journey less lonely and more focused — together.</p>
+        <img src="{% static 'images/focus_logo.png' %}" alt="Focus CA Logo" class="footer-logo"><br>
+        <p>Focus CA Community is a growing space for CA aspirants and articles to connect, support, and grow together. From doubt clearance to mentorship and articleship placements, we're building real initiatives that make the CA journey less lonely and more focused — together.</p>
         <p><small>Follow us to stay updated on all our community initiatives.</small></p>
         <div class="social-icons">
             <a href="https://www.instagram.com/focushostelatca.in?igsh=YXFxb3RpcnNyeG0w" target="_blank">Instagram</a> |
