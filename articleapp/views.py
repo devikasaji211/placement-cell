@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db import IntegrityError
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 
@@ -97,6 +97,12 @@ def article_register(request):
         return redirect('article_login')
 
     return render(request, 'article_register.html')
+
+def check_article_username(request):
+    username = request.GET.get('username', None)
+    exists = User.objects.filter(username=username).exists()
+    return JsonResponse({'available': not exists})
+
 
 @login_required
 def add_vacancy(request):

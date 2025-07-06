@@ -15,5 +15,6 @@ urlpatterns =[
     path('article-notifications/read/<int:notification_id>/', views.mark_notification_readarticle, name='mark_notification_readarticle'),
     path('edit-article-profile/', views.edit_article_profile, name='edit_article_profile'),
     path('notification/open/<int:notification_id>/', views.open_notification_redirect, name='open_notification_redirect'),
+    path('check-username/', views.check_article_username, name='check_article_username'),
 ]
 
