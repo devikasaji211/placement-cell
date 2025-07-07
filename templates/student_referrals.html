@@ -1,7 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My Referral Requests</title>
+{% extends 'base.html' %}
+
+
+    {% block title %} Articles Dashboard {% endblock %}
+
+    {% block head %}
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -67,8 +69,10 @@
             color: #555;
         }
     </style>
-</head>
-<body>
+{% endblock %}
+
+    {% block content %}
+
     <h2>My Referral Requests</h2>
     {% if referrals %}
         <table>
@@ -104,7 +108,9 @@
     {% else %}
         <p>You have not submitted any referral requests yet.</p>
     {% endif %}
-</body>
-</html>
+{% endblock %}
+
+
+
 <p>
     <a href="{% url 'student_page' %}">Back to Dashboard</a>

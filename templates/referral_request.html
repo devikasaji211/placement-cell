@@ -1,9 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request Referral - {{ vacancy.firm_name }}</title>
+{% extends 'base.html' %}
+
+
+    {% block title %}Request Referral - {{ vacancy.firm_name }}{% endblock %}
+
+    {% block head %}
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
@@ -215,8 +216,9 @@
             }
         }
     </style>
-</head>
-<body>
+{% endblock %}
+
+    {% block content %}
     <div class="container">
         <h2>Request Referral</h2>
         
@@ -262,5 +264,4 @@
             document.getElementById('file-name').textContent = fileName;
         });
     </script>
-</body>
-</html>
+{% endblock %}

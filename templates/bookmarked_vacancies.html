@@ -1,8 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Bookmarked Vacancies</title>
+{% extends 'base.html' %}
+
+
+    {% block title %} My Bookmarked Vacancies {% endblock %}
+
+    {% block head %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -136,8 +137,10 @@
             }
         }
     </style>
-</head>
-<body>
+{% endblock %}
+
+    {% block content %}
+
     <div class="container">
         <h1><i class="fas fa-bookmark"></i> My Bookmarked Vacancies</h1>
 
@@ -179,5 +182,4 @@
             <i class="fas fa-arrow-left"></i> Back to Dashboard
         </a>
     </div>
-</body>
-</html>
+{% endblock %}

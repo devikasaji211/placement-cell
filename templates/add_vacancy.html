@@ -1,8 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Post Articleship Vacancy</title>
+{% extends 'base.html' %}
+
+
+    {% block title %} Articleship Vacancy {% endblock %}
+
+    {% block head %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Important for mobile -->
     <style>
         body {
@@ -106,8 +107,10 @@
             }
         }
     </style>
-</head>
-<body>
+{% endblock %}
+
+    {% block content %}
+
 
     <h2>Post an Articleship Vacancy</h2>
 
@@ -186,5 +189,4 @@
 
     <p><a href="{% url 'article_page' %}">← Back to Dashboard</a></p>
 
-</body>
-</html>
+{% endblock %}

@@ -1,11 +1,13 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>FocusCA - Placement Cell</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
+{% extends 'base.html' %}
+
+
+    {% block title %} FocusCA - Placement Cell {% endblock %}
+
+    {% block head %}
+    
     <!-- Meta for SEO -->
     <meta name="description" content="FocusCA Placement Cell – Empowering CA aspirants with mentorship, hostels, and doubt clearance groups. Join the community.">
     <link rel="icon" href="{% static 'images/logo.png' %}" type="image/png">
@@ -263,8 +265,9 @@
             }
         }
     </style>
-</head>
-<body>
+{% endblock %}
+
+    {% block content %}
 
 <div class="main-content">
     <!-- HERO SECTION -->
@@ -386,5 +389,5 @@
         once: true
     });
 </script>
-</body>
-</html>
+{% endblock %}
+

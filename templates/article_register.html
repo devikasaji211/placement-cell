@@ -1,8 +1,12 @@
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Article Registration</title>
+
+
+{% extends 'base.html' %}
+
+
+    {% block title %} Article registration {% endblock %}
+
+    {% block head %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
@@ -145,8 +149,9 @@
             }
         }
     </style>
-</head>
-<body>
+{% endblock %}
+
+    {% block content %}
     <div class="registration-container">
     <!-- {% if messages %}
     {% for message in messages %}
@@ -340,5 +345,4 @@ function togglePassword(fieldId) {
 }
 </script>
 
-</body>
-</html>
+{% endblock %}

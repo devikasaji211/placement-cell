@@ -1,9 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Referral Requests - {{ vacancy.firm_name }}</title>
+
+
+{% extends 'base.html' %}
+
+
+    {% block title %} Referral Requests - {{ vacancy.firm_name }} {% endblock %}
+
+    {% block head %}
+
+   
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
@@ -293,8 +297,9 @@
 }
 
     </style>
-</head>
-<body>
+{% endblock %}
+
+    {% block content %}
     <div class="container">
         <h2>Referral Requests</h2>
         
@@ -396,5 +401,4 @@ window.onclick = function(event) {
 
 </script>
 
-</body>
-</html>
+{% endblock %}

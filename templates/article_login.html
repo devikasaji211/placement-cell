@@ -1,9 +1,13 @@
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Article Login</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+{% extends 'base.html' %}
+
+
+    {% block title %} Articles Dashboard {% endblock %}
+
+    {% block head %}
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
@@ -166,8 +170,9 @@
             }
         }
     </style>
-</head>
-<body>
+{% endblock %}
+
+    {% block content %}
     <div class="login-container">
         <h2>Article Login</h2>
         {% if messages %}
@@ -221,5 +226,6 @@
             }
         }
     </script>
-</body>
-</html>
+{% endblock %}
+
+   
