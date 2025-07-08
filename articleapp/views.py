@@ -6,6 +6,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
+from django.views.decorators.cache import never_cache
 
 from .models import ArticleProfile, VacancyPost
 from studentapp.models import ReferralRequest
@@ -14,7 +15,7 @@ from studentapp.models import Notification
 
 
 # Create your views here.
-
+@never_cache
 @login_required
 def article_page(request):
     try:

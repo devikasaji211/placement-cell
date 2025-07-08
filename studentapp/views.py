@@ -19,7 +19,9 @@ import uuid
 # Create your views here.
 
 from django.db.models import Q
+from django.views.decorators.cache import never_cache
 
+@never_cache
 @login_required
 def student_page(request):
     try:
