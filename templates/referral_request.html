@@ -1,267 +1,304 @@
 {% extends 'base.html' %}
 
+{% block title %} Referral Requests - {{ vacancy.firm_name }} {% endblock %}
 
-    {% block title %}Request Referral - {{ vacancy.firm_name }}{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    :root {
+        --primary-color: #4361ee;
+        --secondary-color: #3f37c9;
+        --accent-color: #4895ef;
+        --light-bg: #f8f9fa;
+        --text-color: #2b2d42;
+        --text-light: #6c757d;
+        --border-color: #e9ecef;
+        --white: #ffffff;
+        --success-color: #4cc9f0;
+        --warning-color: #f8961e;
+        --error-color: #f72585;
+    }
 
-    {% block head %}
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #4361ee;
-            --secondary-color: #3f37c9;
-            --accent-color: #4895ef;
-            --light-bg: #f8f9fa;
-            --text-color: #2b2d42;
-            --text-light: #6c757d;
-            --border-color: #e9ecef;
-            --white: #ffffff;
-            --success-color: #4cc9f0;
-            --error-color: #f72585;
-        }
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--light-bg);
+        color: var(--text-color);
+        padding: 20px;
+        min-height: 100vh;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light-bg);
-            color: var(--text-color);
-            line-height: 1.6;
-            padding: 20px;
-            min-height: 100vh;
-        }
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background-color: var(--white);
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 25px;
+    }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-        }
+    h2 {
+        color: var(--secondary-color);
+        margin-bottom: 25px;
+        font-weight: 600;
+        text-align: center;
+        border-bottom: 2px solid var(--accent-color);
+        padding-bottom: 10px;
+    }
 
-        h2 {
-            color: var(--secondary-color);
-            margin-bottom: 25px;
-            font-weight: 600;
-            text-align: center;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--accent-color);
-        }
+    .vacancy-info {
+        background-color: var(--light-bg);
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        text-align: center;
+    }
 
-        .vacancy-info {
-            background-color: var(--light-bg);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            text-align: center;
-        }
+    .vacancy-info h3 {
+        color: var(--primary-color);
+        margin-bottom: 5px;
+    }
 
-        .vacancy-info h3 {
-            color: var(--primary-color);
-            margin-bottom: 5px;
-        }
+    .referral-card {
+        background: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 16px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
 
-        form {
-            display: flex;
-            flex-direction: column;
+    .referral-info p {
+        margin-bottom: 10px;
+        font-size: 1rem;
+    }
+
+    .action-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .action-form label {
+        margin-bottom: 4px;
+        font-weight: 500;
+    }
+
+    select {
+        padding: 8px 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        font-family: inherit;
+        font-size: 0.9rem;
+        background-color: var(--white);
+        cursor: pointer;
+    }
+
+    select:focus {
+        outline: none;
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 3px rgba(72, 149, 239, 0.2);
+    }
+
+    .btn {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .btn:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-1px);
+    }
+
+    .resume-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .resume-link:hover {
+        text-decoration: underline;
+        color: var(--secondary-color);
+    }
+
+    .back-link {
+        display: block;
+        margin-top: 25px;
+        color: var(--primary-color);
+        text-align: center;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    .back-link:hover {
+        color: var(--secondary-color);
+        text-decoration: underline;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.5);
+        backdrop-filter: blur(3px);
+    }
+
+    .modal-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 25px;
+        border-radius: 10px;
+        max-width: 500px;
+        position: relative;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 12px;
+        right: 18px;
+        font-size: 22px;
+        font-weight: bold;
+        color: #888;
+        cursor: pointer;
+    }
+
+    .close-btn:hover {
+        color: var(--error-color);
+    }
+
+    @media (min-width: 768px) {
+        .referral-card {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
             gap: 20px;
         }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+        .referral-info {
+            flex: 1;
         }
 
-        label {
-            font-weight: 500;
-            color: var(--primary-color);
-        }
-
-        textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 1rem;
-            resize: vertical;
-            min-height: 150px;
-            transition: border-color 0.3s;
-        }
-
-        textarea:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 3px rgba(72, 149, 239, 0.2);
-        }
-
-        .file-input {
-            position: relative;
-            margin-top: 5px;
-        }
-
-        .file-input input {
-            width: 0.1px;
-            height: 0.1px;
-            opacity: 0;
-            overflow: hidden;
-            position: absolute;
-            z-index: -1;
-        }
-
-        .file-input label {
-            display: inline-flex;
+        .action-form {
+            flex-direction: row;
             align-items: center;
-            gap: 10px;
-            padding: 12px 20px;
-            background-color: var(--light-bg);
-            border: 1px dashed var(--border-color);
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
         }
 
-        .file-input label:hover {
-            background-color: #e9ecef;
-            border-color: var(--accent-color);
+        .referral-card .btn {
+            width: auto;
         }
-
-        .file-input i {
-            color: var(--primary-color);
-            font-size: 1.2rem;
-        }
-
-        .file-name {
-            margin-top: 5px;
-            font-size: 0.9rem;
-            color: var(--text-light);
-        }
-
-        button[type="submit"] {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        button[type="submit"]:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(67, 97, 238, 0.2);
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 25px;
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-            text-align: center;
-            width: 100%;
-        }
-
-        .back-link:hover {
-            color: var(--secondary-color);
-            text-decoration: underline;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 15px;
-            }
-
-            .container {
-                padding: 15px;
-            }
-
-            h2 {
-                font-size: 1.3rem;
-            }
-
-            textarea {
-                min-height: 120px;
-            }
-
-            button[type="submit"] {
-                padding: 15px;
-                width: 100%;
-            }
-        }
-    </style>
+    }
+</style>
 {% endblock %}
 
-    {% block content %}
-    <div class="container">
-        <h2>Request Referral</h2>
-        
-        <div class="vacancy-info">
-            <h3>{{ vacancy.firm_name }}</h3>
-            <p>{{ vacancy.branch }} Branch</p>
-        </div>
+{% block content %}
+<div class="container">
+    <h2>Referral Requests</h2>
 
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            
-            <div class="form-group">
-                <label for="message">Describe yourself (Why should I refer you?)</label>
-                <textarea id="message" name="message" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Upload Resume (PDF only)</label>
-                <div class="file-input">
-                    <input type="file" id="resume" name="resume" accept=".pdf" required>
-                    <label for="resume">
-                        <i class="fas fa-file-pdf"></i>
-                        <span>Choose a PDF file</span>
-                    </label>
-                    <div id="file-name" class="file-name">No file selected</div>
-                </div>
-            </div>
-
-            <button type="submit">
-                <i class="fas fa-paper-plane"></i> Send Referral Request
-            </button>
-        </form>
-
-        <a href="{% url 'student_page' %}" class="back-link">
-            <i class="fas fa-arrow-left"></i> Back to Dashboard
-        </a>
+    <div class="vacancy-info">
+        <h3>{{ vacancy.firm_name }}</h3>
+        <p>{{ vacancy.branch }} Branch</p>
     </div>
 
-    <script>
-        // Show selected file name
-        document.getElementById('resume').addEventListener('change', function(e) {
-            const fileName = e.target.files[0] ? e.target.files[0].name : 'No file selected';
-            document.getElementById('file-name').textContent = fileName;
+    {% for referral in referrals %}
+    <div class="referral-card">
+        <div class="referral-info">
+            <p><strong>Student:</strong> {{ referral.student.studentprofile.name }}</p>
+            <p><strong>Resume:</strong>
+                {% if referral.resume %}
+                <a href="{{ referral.resume }}" target="_blank" class="resume-link">
+                    <i class="fas fa-file-pdf"></i> View
+                </a>
+                {% else %}
+                N/A
+                {% endif %}
+            </p>
+
+            <form method="POST" action="{% url 'update_referral_status' referral.id %}" class="action-form">
+                {% csrf_token %}
+                <label for="status-{{ referral.id }}"><strong>Status:</strong></label>
+                <select id="status-{{ referral.id }}" name="status">
+                    <option value="Pending" {% if referral.status == 'Pending' %}selected{% endif %}>Pending</option>
+                    <option value="Accepted" {% if referral.status == 'Accepted' %}selected{% endif %}>Accepted</option>
+                    <option value="Rejected" {% if referral.status == 'Rejected' %}selected{% endif %}>Rejected</option>
+                </select>
+                <button type="submit" class="btn"><i class="fas fa-sync-alt"></i> Update</button>
+            </form>
+
+            <button type="button" class="btn" onclick="openModal('modal-{{ referral.id }}')">
+                <i class="fas fa-eye"></i> View Profile Details
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal-{{ referral.id }}">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-{{ referral.id }}')">&times;</span>
+            <h3>Student Profile</h3>
+            <p><strong>Name:</strong> {{ referral.student.studentprofile.name }}</p>
+            <p><strong>SRO Number:</strong> {{ referral.student.studentprofile.sro }}</p>
+            <p><strong>Email:</strong> {{ referral.student.email }}</p>
+            <p><strong>Phone:</strong> {{ referral.student.studentprofile.phone }}</p>
+            <p><strong>State:</strong> {{ referral.student.studentprofile.state }}</p>
+            <p><strong>District:</strong> {{ referral.student.studentprofile.district }}</p>
+            <p><strong>Orientation:</strong> {{ referral.student.studentprofile.orientation_completed|yesno:"Completed,Pending" }}</p>
+            <p><strong>ITT:</strong> {{ referral.student.studentprofile.itt_completed|yesno:"Completed,Pending" }}</p>
+            {% if referral.student.studentprofile.linkedin %}
+            <p><strong>LinkedIn:</strong> <a href="{{ referral.student.studentprofile.linkedin }}" target="_blank">View</a></p>
+            {% endif %}
+            <hr>
+            <h4>Referral Message</h4>
+            <p>{{ referral.message }}</p>
+        </div>
+    </div>
+    {% endfor %}
+
+    <a href="{% url 'article_page' %}" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </a>
+</div>
+
+<script>
+    function openModal(id) {
+        document.getElementById(id).style.display = 'block';
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
+    }
+
+    window.onclick = function (event) {
+        document.querySelectorAll('.modal').forEach(function (modal) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
         });
-    </script>
+    }
+</script>
 {% endblock %}
