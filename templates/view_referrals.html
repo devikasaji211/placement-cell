@@ -1,356 +1,341 @@
-
-
 {% extends 'base.html' %}
 
+{% block title %}Referral Requests - {{ vacancy.firm_name }}{% endblock %}
 
-    {% block title %} Referral Requests - {{ vacancy.firm_name }} {% endblock %}
+{% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    :root {
+        --primary-color: #4361ee;
+        --secondary-color: #3f37c9;
+        --accent-color: #4895ef;
+        --light-bg: #f8f9fa;
+        --text-color: #2b2d42;
+        --text-light: #6c757d;
+        --border-color: #e9ecef;
+        --white: #ffffff;
+        --success-color: #4cc9f0;
+        --warning-color: #f8961e;
+        --error-color: #f72585;
+    }
 
-    {% block head %}
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
 
-   
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #4361ee;
-            --secondary-color: #3f37c9;
-            --accent-color: #4895ef;
-            --light-bg: #f8f9fa;
-            --text-color: #2b2d42;
-            --text-light: #6c757d;
-            --border-color: #e9ecef;
-            --white: #ffffff;
-            --success-color: #4cc9f0;
-            --warning-color: #f8961e;
-            --error-color: #f72585;
-        }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--light-bg);
+        color: var(--text-color);
+        line-height: 1.6;
+        padding: 20px;
+        min-height: 100vh;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background-color: var(--white);
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        width: 100%;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light-bg);
-            color: var(--text-color);
-            line-height: 1.6;
-            padding: 20px;
-            min-height: 100vh;
-        }
+    h2 {
+        color: var(--secondary-color);
+        margin-bottom: 25px;
+        font-weight: 600;
+        text-align: center;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--accent-color);
+    }
 
+    .vacancy-info {
+        background-color: var(--light-bg);
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .vacancy-info h3 {
+        color: var(--primary-color);
+        margin-bottom: 5px;
+    }
+
+    .referral-cards {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .referral-card {
+        background-color: var(--white);
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        border-left: 4px solid var(--accent-color);
+        width: 100%;
+    }
+
+    .referral-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .student-name {
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+
+    .status {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    .status-pending {
+        background-color: rgba(248, 150, 30, 0.1);
+        color: var(--warning-color);
+    }
+
+    .status-accepted {
+        background-color: rgba(76, 201, 240, 0.1);
+        color: var(--success-color);
+    }
+
+    .status-rejected {
+        background-color: rgba(247, 37, 133, 0.1);
+        color: var(--error-color);
+    }
+
+    .referral-details {
+        margin-bottom: 15px;
+    }
+
+    .detail-row {
+        display: flex;
+        margin-bottom: 8px;
+    }
+
+    .detail-label {
+        font-weight: 500;
+        min-width: 100px;
+        color: var(--text-light);
+    }
+
+    .detail-value {
+        flex: 1;
+    }
+
+    .resume-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .resume-link:hover {
+        color: var(--secondary-color);
+        text-decoration: underline;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .btn {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        flex: 1;
+        justify-content: center;
+    }
+
+    .btn:hover {
+        background-color: var(--secondary-color);
+    }
+
+    .btn i {
+        font-size: 0.9em;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 25px;
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+        text-align: center;
+        width: 100%;
+    }
+
+    .back-link:hover {
+        color: var(--secondary-color);
+        text-decoration: underline;
+    }
+
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.5);
+        backdrop-filter: blur(3px);
+    }
+
+    .modal-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 25px;
+        border-radius: 10px;
+        max-width: 500px;
+        position: relative;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        width: 90%;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 12px;
+        right: 18px;
+        font-size: 22px;
+        font-weight: bold;
+        color: #888;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+
+    .close-btn:hover {
+        color: var(--error-color);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 30px;
+            padding: 20px;
         }
 
-        h2 {
-            color: var(--secondary-color);
-            margin-bottom: 25px;
-            font-weight: 600;
-            text-align: center;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--accent-color);
-        }
-
-        .vacancy-info {
-            background-color: var(--light-bg);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        .vacancy-info h3 {
-            color: var(--primary-color);
-            margin-bottom: 5px;
-        }
-
-        .referrals-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            overflow-x: auto;
-        }
-
-        .referrals-table th {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 12px 15px;
-            text-align: left;
-        }
-
-        .referrals-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid var(--border-color);
-            vertical-align: middle;
-        }
-
-        .referrals-table tr:hover {
-            background-color: rgba(72, 149, 239, 0.05);
-        }
-
-        .status {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .status-pending {
-            background-color: rgba(248, 150, 30, 0.1);
-            color: var(--warning-color);
-        }
-
-        .status-accepted {
-            background-color: rgba(76, 201, 240, 0.1);
-            color: var(--success-color);
-        }
-
-        .status-rejected {
-            background-color: rgba(247, 37, 133, 0.1);
-            color: var(--error-color);
-        }
-
-        .action-form {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        select {
-            padding: 8px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 0.9rem;
-            background-color: var(--white);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        select:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 3px rgba(72, 149, 239, 0.2);
+        .action-buttons {
+            flex-direction: column;
         }
 
         .btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 480px) {
+        body {
+            padding: 10px;
         }
 
-        .btn:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-1px);
+        .container {
+            padding: 15px;
+            border-radius: 8px;
         }
 
-        .btn i {
-            font-size: 0.9em;
+        h2 {
+            font-size: 1.3rem;
         }
 
-        .resume-link {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
+        .referral-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
         }
 
-        .resume-link:hover {
-            color: var(--secondary-color);
-            text-decoration: underline;
+        .detail-row {
+            flex-direction: column;
+            gap: 2px;
         }
 
-        .back-link {
-            display: inline-block;
-            margin-top: 25px;
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
+        .detail-label {
+            min-width: auto;
         }
-
-        .back-link:hover {
-            color: var(--secondary-color);
-            text-decoration: underline;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-
-            .referrals-table {
-                display: block;
-            }
-
-            .referrals-table thead {
-                display: none;
-            }
-
-            .referrals-table tr {
-                display: block;
-                margin-bottom: 20px;
-                border: 1px solid var(--border-color);
-                border-radius: 8px;
-                padding: 10px;
-            }
-
-            .referrals-table td {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 10px;
-                border-bottom: none;
-            }
-
-            .referrals-table td::before {
-                content: attr(data-label);
-                font-weight: 600;
-                color: var(--primary-color);
-                margin-right: 15px;
-            }
-
-            .action-form {
-                flex-direction: column;
-                align-items: flex-end;
-            }
-
-            select {
-                width: 100%;
-            }
-
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 15px;
-            }
-
-            .container {
-                padding: 15px;
-            }
-
-            h2 {
-                font-size: 1.3rem;
-            }
-        }
-
-        .modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.5);
-    backdrop-filter: blur(3px);
-}
-
-.modal-content {
-    background-color: #fff;
-    margin: 10% auto;
-    padding: 25px;
-    border-radius: 10px;
-    max-width: 500px;
-    position: relative;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-}
-
-.close-btn {
-    position: absolute;
-    top: 12px;
-    right: 18px;
-    font-size: 22px;
-    font-weight: bold;
-    color: #888;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.close-btn:hover {
-    color: var(--error-color);
-}
-
-    </style>
+    }
+</style>
 {% endblock %}
 
-    {% block content %}
-    <div class="container">
-        <h2>Referral Requests</h2>
-        
-        <div class="vacancy-info">
-            <h3>{{ vacancy.firm_name }}</h3>
-            <p>{{ vacancy.branch }} Branch</p>
-        </div>
+{% block content %}
+<div class="container">
+    <h2>Referral Requests</h2>
+    
+    <div class="vacancy-info">
+        <h3>{{ vacancy.firm_name }}</h3>
+        <p>{{ vacancy.branch }} Branch</p>
+    </div>
 
-        <div class="table-responsive">
-            <table class="referrals-table">
-    <thead>
-        <tr>
-            <th>Student</th>
-            <th>Resume</th>
-            <th>Status</th>
-            <!-- <th>Actions</th> -->
-        </tr>
-    </thead>
-    <tbody>
+    <div class="referral-cards">
         {% for referral in referrals %}
-        <tr>
-            <td data-label="Student">{{ referral.student.studentprofile.name }}</td>
-
-            <td data-label="Resume">
-                {% if referral.resume %}
-                    <a href="{{ referral.resume }}" target="_blank" class="resume-link">
-                        <i class="fas fa-file-pdf"></i> View
-                    </a>
-                {% else %}
-                    N/A
-                {% endif %}
-            </td>
-
-            <td data-label="Status">
+        <div class="referral-card">
+            <div class="referral-header">
+                <span class="student-name">{{ referral.student.studentprofile.name }}</span>
+                <span class="status status-{{ referral.status|lower }}">{{ referral.status }}</span>
+            </div>
+            
+            <div class="referral-details">
+                <div class="detail-row">
+                    <span class="detail-label">Resume:</span>
+                    <span class="detail-value">
+                        {% if referral.resume %}
+                            <a href="{{ referral.resume }}" target="_blank" class="resume-link">
+                                <i class="fas fa-file-pdf"></i> View Resume
+                            </a>
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Submitted:</span>
+                    <span class="detail-value">{{ referral.created_at|date:"d M Y" }}</span>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
                 <form method="POST" action="{% url 'update_referral_status' referral.id %}" class="action-form">
                     {% csrf_token %}
-                    <select name="status">
+                    <select name="status" style="width: 100%; padding: 8px; margin-bottom: 10px;">
                         <option value="Pending" {% if referral.status == 'Pending' %}selected{% endif %}>Pending</option>
                         <option value="Accepted" {% if referral.status == 'Accepted' %}selected{% endif %}>Accepted</option>
                         <option value="Rejected" {% if referral.status == 'Rejected' %}selected{% endif %}>Rejected</option>
                     </select>
-                    <button type="submit" class="btn"><i class="fas fa-sync-alt"></i> Update</button>
+                    <button type="submit" class="btn"><i class="fas fa-sync-alt"></i> Update Status</button>
                 </form>
-            </td>
-
-            <td >
                 <button type="button" class="btn" onclick="openModal('modal-{{ referral.id }}')">
-                    <i class="fas fa-eye"></i> View Profile Details
+                    <i class="fas fa-eye"></i> View Details
                 </button>
-            </td>
-        </tr>
+            </div>
+        </div>
 
         <!-- Modal for View More -->
         <div class="modal" id="modal-{{ referral.id }}">
@@ -358,7 +343,6 @@
                 <span class="close-btn" onclick="closeModal('modal-{{ referral.id }}')">&times;</span>
                 <h3>Student Profile</h3>
                 <p><strong>Name:</strong> {{ referral.student.studentprofile.name }}</p>
-                <!-- <p><strong>SRO Number:</strong> {{ referral.student.studentprofile.sro }}</p> -->
                 <p><strong>Email:</strong> {{ referral.student.email }}</p>
                 <p><strong>Phone:</strong> {{ referral.student.studentprofile.phone }}</p>
                 <p><strong>State:</strong> {{ referral.student.studentprofile.state }}</p>
@@ -374,31 +358,28 @@
             </div>
         </div>
         {% endfor %}
-    </tbody>
-</table>
-
-        </div>
-
-        <a href="{% url 'article_page' %}" class="back-link">
-            <i class="fas fa-arrow-left"></i> Back to Dashboard
-        </a>
     </div>
 
-    <script>
+    <a href="{% url 'article_page' %}" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </a>
+</div>
+
+<script>
     function openModal(id) {
-    document.getElementById(id).style.display = 'block';
-}
-function closeModal(id) {
-    document.getElementById(id).style.display = 'none';
-}
-window.onclick = function(event) {
-    document.querySelectorAll('.modal').forEach(function(modal) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    });
-}
-
+        document.getElementById(id).style.display = 'block';
+    }
+    
+    function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
+    }
+    
+    window.onclick = function(event) {
+        document.querySelectorAll('.modal').forEach(function(modal) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    }
 </script>
-
 {% endblock %}
