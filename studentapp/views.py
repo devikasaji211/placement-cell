@@ -41,12 +41,14 @@ def student_page(request):
         vacancies = VacancyPost.objects.all()
 
     unread_count = Notification.objects.filter(user=request.user, is_read=False).count()
-
+    applied_vacancy_ids = ReferralRequest.objects.filter(student=request.user).values_list('vacancy_id', flat=True)
+    
     return render(request, 'student_page.html', {
         'profile': profile,
         'vacancies': vacancies,
         'unread_count': unread_count,
-        'search_query': search_query
+        'search_query': search_query,
+        'applied_vacancy_ids': list(applied_vacancy_ids)
     })
 
 
