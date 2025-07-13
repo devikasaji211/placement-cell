@@ -840,24 +840,35 @@
 
                         <hr style="margin: 20px 0;">
                         <h4>Article's Contact Details</h4>
-                        {% if vacancy.share_contact %}
-                            {% if vacancy.phone %}
-                            <div class="detail-item">
-                                <strong>Phone:</strong>
-                                <a href="tel:{{ vacancy.phone }}">{{ vacancy.phone }}</a>
-                            </div>
-                            {% endif %}
-                            {% if vacancy.email %}
-                            <div class="detail-item">
-                                <strong>Email:</strong>
-                                <a href="mailto:{{ vacancy.email }}">{{ vacancy.email }}</a>
-                            </div>
-                            {% endif %}
-                        {% else %}
-                        <div class="detail-item">
-                            <span style="color: var(--text-light);"><i class="fas fa-info-circle"></i> Contact details not shared</span>
-                        </div>
-                        {% endif %}
+{% if vacancy.share_contact %}
+    {% with article=vacancy.article.articleprofile %}
+        {% if article.phone %}
+        <div class="detail-item">
+            <strong>Phone:</strong>
+            <a href="tel:{{ article.phone }}">{{ article.phone }}</a>
+        </div>
+        {% endif %}
+        {% if article.email %}
+        <div class="detail-item">
+            <strong>Email:</strong>
+            <a href="mailto:{{ article.email }}">{{ article.email }}</a>
+        </div>
+        {% endif %}
+        {% if article.linkedin %}
+        <div class="detail-item">
+            <strong>LinkedIn:</strong>
+            <a href="{{ article.linkedin }}" target="_blank">View Profile</a>
+        </div>
+        {% endif %}
+    {% endwith %}
+{% else %}
+    <div class="detail-item">
+        <span style="color: var(--text-light);">
+            <i class="fas fa-info-circle"></i> Contact details not shared
+        </span>
+    </div>
+{% endif %}
+
                     </div>
                 </div>
                 {% endfor %}
